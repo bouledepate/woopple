@@ -1,0 +1,30 @@
+{
+  "name": "bouledepate/woopple",
+  "description": "Wooppay employee cabinet",
+  "type": "project",
+  "require": {
+    "yiisoft/yii2": "~2.0.0",
+    "vlucas/phpdotenv": "^5.5"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+    }
+  },
+  "authors": [
+    {
+      "name": "Semyon Shmik",
+      "email": "promtheus815@gmail.com"
+    }
+  ],
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  }
+}
