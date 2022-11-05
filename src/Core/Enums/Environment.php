@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Enum;
+namespace Core\Enums;
 
 enum Environment: string
 {

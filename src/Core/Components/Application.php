@@ -1,9 +1,9 @@
 <?php
 
-namespace Core\Component;
+namespace Core\Components;
 
 use Dotenv\Dotenv;
-use Core\Enum\Environment;
+use Core\Enums\Environment;
 use yii\base\Application as YiiApp;
 
 abstract class Application
@@ -16,14 +16,24 @@ abstract class Application
         $this->loadEnvironmentVariables();
         $this->loadConfigurationFile();
         $this->defineYiiConstants();
+        $this->buildApplication();
         $this->buildYiiApplication();
     }
 
+    /**
+     * Loading variables from .env file.
+     * @return void
+     */
     protected function loadEnvironmentVariables(): void
     {
         Dotenv::createImmutable(dirname(__DIR__, 3))->load();
     }
 
+    /**
+     * Define default yii constants
+     * @deprecated
+     * @return void
+     */
     protected function defineYiiConstants(): void
     {
         if (Environment::current() === Environment::DEVELOPMENT) {
@@ -32,6 +42,16 @@ abstract class Application
         }
     }
 
+    /**
+     * Build current application. Must contain calls of config methods before yii app building.
+     * @return void
+     */
+    abstract protected function buildApplication(): void;
+
+    /**
+     * Returns requiring current application configuration file.
+     * @return void
+     */
     abstract protected function loadConfigurationFile(): void;
 
     abstract protected function buildYiiApplication(): void;
