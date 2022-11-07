@@ -3,7 +3,6 @@
 namespace Woopple;
 
 use Core\Components\Application;
-use Core\Enums\Environment;
 use yii\web\Application as YiiApp;
 
 class WooppleApplication extends Application
@@ -16,10 +15,6 @@ class WooppleApplication extends Application
     protected function buildYiiApplication(): void
     {
         $this->application = new YiiApp($this->config);
-    }
-
-    protected function buildApplication(): void
-    {
     }
 
     public function run(): int

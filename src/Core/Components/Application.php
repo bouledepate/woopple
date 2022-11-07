@@ -46,7 +46,9 @@ abstract class Application
      * Build current application. Must contain calls of config methods before yii app building.
      * @return void
      */
-    abstract protected function buildApplication(): void;
+    protected function buildApplication(): void
+    {
+    }
 
     /**
      * Returns requiring current application configuration file.

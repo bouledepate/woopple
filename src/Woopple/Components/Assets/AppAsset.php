@@ -1,6 +1,6 @@
 <?php
 
-namespace Woopple\Components;
+namespace Woopple\Components\Assets;
 
 use yii\web\AssetBundle;
 
@@ -12,8 +12,6 @@ class AppAsset extends AssetBundle
     public $js = [];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap4\BootstrapAsset',
-        'Woopple\Components\AdminlteAsset',
-        'Woopple\Components\FontAwesomeAsset'
+        'Woopple\Components\Assets\BootstrapAsset'
     ];
 }

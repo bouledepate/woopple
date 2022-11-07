@@ -6,17 +6,21 @@ $routes = require_once 'routes/main.php';
 return [
     'id' => 'woopple',
     'name' => 'Woopple',
-    'basePath' => dirname(__DIR__, 3),
     'language' => 'ru-RU',
     'timeZone' => 'Asia/Almaty',
+    'basePath' => dirname(__DIR__, 3),
+    'runtimePath' => dirname(__DIR__) . '/runtime',
+    'vendorPath' => dirname(__DIR__, 3) . '/vendor',
+    'layoutPath' => '@woopple/Layouts',
+    'viewPath' => '@woopple/Views',
+    'controllerNamespace' => 'Woopple\Controllers',
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
         '@public' => dirname(__DIR__, 3) . '/public',
         '@woopple' => dirname(__DIR__, 3) . '/src/Woopple',
-        '@console' => dirname(__DIR__, 3) . '/src/Console',
-        '@core' => dirname(__DIR__, 3) . '/src/Core'
+        '@wooppleConfig' => dirname(__DIR__)
     ],
     'components' => [
         'request' => [
@@ -39,9 +43,4 @@ return [
         ]
     ],
     'params' => $params,
-    'layoutPath' => '@woopple/Layouts',
-    'viewPath' => '@woopple/Views',
-    'vendorPath' => dirname(__DIR__, 3) . '/vendor',
-    'runtimePath' => dirname(__DIR__) . '/runtime',
-    'controllerNamespace' => 'Woopple\Controllers'
 ];

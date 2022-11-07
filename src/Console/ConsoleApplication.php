@@ -21,8 +21,4 @@ class ConsoleApplication extends Application
     {
         return $this->application->run();
     }
-
-    protected function buildApplication(): void
-    {
-    }
 }
