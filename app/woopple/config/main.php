@@ -9,12 +9,7 @@ return [
     'language' => 'ru-RU',
     'timeZone' => 'Asia/Almaty',
     'basePath' => dirname(__DIR__, 3),
-    'runtimePath' => dirname(__DIR__) . '/runtime',
-    'vendorPath' => dirname(__DIR__, 3) . '/vendor',
-    'layoutPath' => '@woopple/Layouts',
-    'viewPath' => '@woopple/Views',
     'controllerNamespace' => 'Woopple\Controllers',
-    'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -22,6 +17,11 @@ return [
         '@woopple' => dirname(__DIR__, 3) . '/src/Woopple',
         '@wooppleConfig' => dirname(__DIR__)
     ],
+    'bootstrap' => ['log'],
+    'runtimePath' => dirname(__DIR__) . '/runtime',
+    'vendorPath' => dirname(__DIR__, 3) . '/vendor',
+    'layoutPath' => '@woopple/Layouts',
+    'viewPath' => '@woopple/Views',
     'components' => [
         'request' => [
             'cookieValidationKey' => 'wmYG0NTg6j2ZYqe2pVu8zsQfJs5ucyouNM1RdFDu'
