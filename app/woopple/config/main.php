@@ -15,7 +15,7 @@ return [
         '@npm' => '@vendor/npm-asset',
         '@public' => dirname(__DIR__, 3) . '/public',
         '@woopple' => dirname(__DIR__, 3) . '/src/Woopple',
-        '@wooppleConfig' => dirname(__DIR__)
+        '@wooppleConfig' => dirname(__DIR__) . '/config'
     ],
     'bootstrap' => ['log'],
     'runtimePath' => dirname(__DIR__) . '/runtime',

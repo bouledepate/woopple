@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use yii\helpers\Html;
@@ -10,7 +11,11 @@ use Core\Enums\Environment;
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 $publishedRes = Yii::$app->assetManager->publish('@vendor/hail812/yii2-adminlte3/src/web/js');
-$this->registerJsFile($publishedRes[1].'/control_sidebar.js', ['depends' => '\hail812\adminlte3\assets\AdminLteAsset']);
+$devEnv = Environment::current() === Environment::DEVELOPMENT;
+if ($devEnv) $this->registerJsFile(
+    $publishedRes[1] . '/control_sidebar.js',
+    ['depends' => '\hail812\adminlte3\assets\AdminLteAsset']
+);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -27,13 +32,13 @@ $this->registerJsFile($publishedRes[1].'/control_sidebar.js', ['depends' => '\ha
 <?php $this->beginBody() ?>
 
 <div class="wrapper">
-    <?= $this->render('navbar', ['assetDir' => $assetDir]) ?>
+    <?= \Woopple\Components\Widgets\Navbar::widget() ?>
 
     <?= $this->render('sidebar', ['assetDir' => $assetDir]) ?>
 
     <?= $this->render('content', ['content' => $content, 'assetDir' => $assetDir]) ?>
 
-    <?= Environment::current() === Environment::DEVELOPMENT ? $this->render('control-sidebar') : '' ?>
+    <?= $devEnv ? $this->render('control-sidebar') : '' ?>
 
     <?= $this->render('footer') ?>
 </div>
