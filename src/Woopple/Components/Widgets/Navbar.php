@@ -51,34 +51,45 @@ class Navbar extends Widget
             if (isset($item['items'])) {
                 $dropdownType = $child ? self::DROPDOWN_TYPE_SUBMENU : self::DROPDOWN_TYPE_NORMAL;
                 $dropdownItems = $this->renderItems($item['items'], true);
-                $content .= $this->renderDropdown($dropdownType, $index, $item['title'], $dropdownItems, $access);
+                $content .= $this->renderDropdown(
+                    type: $dropdownType,
+                    id: $index,
+                    title: $dropdownItems,
+                    items: $item['title'],
+                    access: $access
+                );
             } elseif (isset($item['divider'])) {
                 $content .= self::DIVIDER;
             } else {
                 $linkType = $child ? self::LINK_TYPE_DROPDOWN : self::LINK_TYPE_NORMAL;
-                $content .= $this->renderLink($linkType, $item['url'], $item['title'], $access);
+                $content .= $this->renderLink(
+                    type: $linkType,
+                    url: $item['url'],
+                    title: $item['title'],
+                    access: $access
+                );
             }
         }
         return $content;
     }
 
-    protected function renderLink(string $type, string $url, string $title, bool $visible = true): string
+    protected function renderLink(string $type, string $url, string $title, bool $access = true): string
     {
         return $this->render($type, [
             'url' => $url,
             'title' => $title,
-            'visible' => $visible
+            'access' => $access
         ]);
     }
 
-    protected function renderDropdown(string $type, int $id, string $title, string $items, bool $visible = true): string
+    protected function renderDropdown(string $type, int $id, string $title, string $items, bool $access = true): string
     {
         $submenu = $type === self::DROPDOWN_TYPE_SUBMENU;
         return $this->render('navbar_dropdown', [
             'id' => 'dropdown-' . $id,
             'title' => $title,
             'items' => $items,
-            'visible' => $visible,
+            'access' => $access,
             'submenu' => $submenu
         ]);
     }

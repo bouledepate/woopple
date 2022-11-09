@@ -3,12 +3,12 @@
  * @var string $id
  * @var string $title
  * @var string $items
- * @var boolean $visible
+ * @var boolean $access
  * @var boolean $submenu
  */
 ?>
 
-<?php if ($visible): ?>
+<?php if ($access): ?>
     <?php if ($submenu): ?>
         <li class="dropdown-submenu dropdown-hover">
             <a id="<?= $id ?>" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"

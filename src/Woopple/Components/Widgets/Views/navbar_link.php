@@ -2,11 +2,11 @@
 /**
  * @var string $url
  * @var string $title
- * @var boolean $visible
+ * @var boolean $access
  */
 ?>
 
-<?php if ($visible): ?>
+<?php if ($access): ?>
     <li class="nav-item d-none d-sm-inline-block">
         <a href="<?= $url ?>" class="nav-link"><?= $title ?></a>
     </li>

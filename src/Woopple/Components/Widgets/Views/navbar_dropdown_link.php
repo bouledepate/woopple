@@ -2,10 +2,10 @@
 /**
  * @var string $url
  * @var string $title
- * @var boolean $visible
+ * @var boolean $access
  */
 ?>
 
-<?php if ($visible): ?>
+<?php if ($access): ?>
     <li><a href="<?= $url ?>" class="dropdown-item"><?= $title ?></a></li>
 <?php endif; ?>

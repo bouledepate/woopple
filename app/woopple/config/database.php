@@ -1,7 +1,7 @@
 <?php
 
-$dsn = sprintf('%s:host=%s;porn=%s;dbname=%s',
-    $_ENV['db_driver'],
+$dsn = sprintf('%s:host=%s;port=%s;dbname=%s',
+    $_ENV['DB_DRIVER'],
     $_ENV['DB_HOST'],
     $_ENV['DB_PORT'],
     $_ENV['DB_NAME']
