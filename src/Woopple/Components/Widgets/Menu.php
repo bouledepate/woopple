@@ -15,7 +15,7 @@ class Menu extends AdminlteMenu
 
     public function init(): void
     {
-        $path = \Yii::getAlias('@wooppleApp') . '/navigation/sidebar.php';
+        $path = \Yii::getAlias('@wooppleApp') . '/config/navigation/sidebar.php';
         $this->items = require $path;
     }
 }

@@ -12,7 +12,6 @@ class AppAsset extends AssetBundle
     public $js = [];
     public $depends = [
         'yii\web\YiiAsset',
-        'Woopple\Components\Assets\BootstrapAsset',
         'hail812\adminlte3\assets\FontAwesomeAsset',
         'hail812\adminlte3\assets\AdminLteAsset'
     ];

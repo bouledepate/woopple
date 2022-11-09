@@ -54,8 +54,8 @@ class Navbar extends Widget
                 $content .= $this->renderDropdown(
                     type: $dropdownType,
                     id: $index,
-                    title: $dropdownItems,
-                    items: $item['title'],
+                    title: $item['title'],
+                    items: $dropdownItems,
                     access: $access
                 );
             } elseif (isset($item['divider'])) {
@@ -96,7 +96,7 @@ class Navbar extends Widget
 
     protected function uploadNavigationRules(): void
     {
-        $path = \Yii::getAlias('@wooppleApp') . '/navigation/navbar.php';
+        $path = \Yii::getAlias('@wooppleApp') . '/config/navigation/navbar.php';
         $this->items = require $path;
     }
 
