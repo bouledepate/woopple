@@ -85,7 +85,7 @@ class Navbar extends Widget
 
     protected function uploadNavigationRules(): void
     {
-        $path = \Yii::getAlias('@wooppleConfig') . '/navigation/navbar.php';
+        $path = \Yii::getAlias('@wooppleApp') . '/navigation/navbar.php';
         $this->items = require $path;
     }
 

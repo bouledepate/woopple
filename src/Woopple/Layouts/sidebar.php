@@ -16,8 +16,7 @@
             </div>
         </div>
         <nav class="mt-2">
-            <?= \Woopple\Components\Widgets\Menu::widget();
-            ?>
+            <?= \Woopple\Components\Widgets\Menu::widget(); ?>
         </nav>
     </div>
 </aside>

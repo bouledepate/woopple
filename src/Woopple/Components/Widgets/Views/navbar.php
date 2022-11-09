@@ -64,7 +64,7 @@
 
         <?php if (\Core\Enums\Environment::current() === \Core\Enums\Environment::DEVELOPMENT): ?>
             <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                <a class="nav-link" data-widgete="control-sidebar" data-slide="true" href="#" role="button">
                     <i class="fas fa-th-large"></i>
                 </a>
             </li>
