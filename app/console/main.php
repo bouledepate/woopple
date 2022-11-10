@@ -3,10 +3,12 @@
 return [
     'id' => 'woopple-console',
     'basePath' => __DIR__,
-    'controllerNamespace' => 'Console\Controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset'
+        '@npm' => '@vendor/npm-asset',
+        '@public' => dirname(__DIR__, 3) . '/public',
+        '@wooppleSource' => dirname(__DIR__, 3) . '/src/Woopple',
+        '@wooppleApp' => dirname(__DIR__)
     ],
     'components' => [
         'cache' => [

@@ -32,17 +32,5 @@
  */
 
 return [
-    ['title' => 'Hello world', 'url' => '#'],
-    ['title' => 'Hello world 2', 'url' => '#', 'items' => [
-        ['title' => 'Hello world 3', 'url' => '#'],
-        ['title' => 'Hello world 4', 'url' => '#']
-    ]],
-    ['title' => 'Hello world 5', 'url' => '#', 'items' => [
-        ['title' => 'Hello world 6', 'url' => '#'],
-        ['title' => 'Hello world 7', 'url' => '#', 'items' => [
-            ['title' => 'Hello world 8', 'url' => '#'],
-            ['divider' => true],
-            ['title' => 'Hello world 10', 'url' => '#'],
-        ]]
-    ]],
+    ['title' => Yii::t('site', 'home'), 'url' => Yii::$app->getHomeUrl()]
 ];

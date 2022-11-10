@@ -7,7 +7,7 @@ $database = require_once 'database.php';
 return [
     'id' => 'woopple',
     'name' => 'Woopple',
-    'language' => 'ru',
+    'language' => 'ru-RU',
     'timeZone' => 'Asia/Almaty',
     'basePath' => dirname(__DIR__, 3),
     'controllerNamespace' => 'Woopple\Controllers',
@@ -49,7 +49,18 @@ return [
             'ruleFile' => '@wooppleApp/rbac/rules.php',
             'assignmentFile' => '@wooppleApp/rbac/assignments.php',
         ],
-        'db' => $database
+        'db' => $database,
+        'errorHandler' => [
+            'errorAction' => 'site/error'
+        ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@wooppleApp/messages',
+                ]
+            ],
+        ],
     ],
     'params' => $params,
 ];

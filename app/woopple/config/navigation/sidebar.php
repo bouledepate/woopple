@@ -1,7 +1,7 @@
 <?php
 
-return [
-    [
+/**
+ * [
         'label' => 'Starter Pages',
         'icon' => 'tachometer-alt',
         'badge' => '<span class="right badge badge-info">2</span>',
@@ -37,4 +37,8 @@ return [
     ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
     ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
     ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
+ */
+
+return [
+
 ];

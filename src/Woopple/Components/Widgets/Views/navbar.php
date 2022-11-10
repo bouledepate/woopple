@@ -9,6 +9,9 @@
  * @var string $notifications ;
  * @var boolean $fullscreen
  */
+
+use yii\helpers\Html;
+
 ?>
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -53,22 +56,18 @@
             </li>
         <?php endif; ?>
 
-        <!-- <li class="nav-item">-->
-        <!-- Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link'])-->
-        <!-- </li>-->
+        <li class="nav-item">
+            <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+        </li>
+
+        <li class="nav-item">
+            <?= Html::a('<i class="fas fa-sign-in-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+        </li>
 
         <?php if ($fullscreen): ?>
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
-                </a>
-            </li>
-        <?php endif; ?>
-
-        <?php if (\Core\Enums\Environment::current() === \Core\Enums\Environment::DEVELOPMENT): ?>
-            <li class="nav-item">
-                <a class="nav-link" data-widgete="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
                 </a>
             </li>
         <?php endif; ?>
