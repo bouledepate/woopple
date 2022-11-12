@@ -1,5 +1,7 @@
 <?php
 
+$database = require 'database.php';
+
 return [
     'id' => 'woopple-console',
     'basePath' => __DIR__,
@@ -21,6 +23,7 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
-        ]
+        ],
+        'db' => $database
     ]
 ];

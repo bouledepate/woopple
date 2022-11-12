@@ -5,7 +5,7 @@
  * @var string $message
  * @var Exception $exception
  */
-
+$this->title = 'Woopple'
 ?>
 
 <div class="container">

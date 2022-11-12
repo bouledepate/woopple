@@ -1,5 +1,5 @@
 <?php
 /** @var \yii\web\View $this */
-$this->title = 'Woopple';
+$this->title .= 'Главная';
 ?>
 <h1>Hello world</h1>
