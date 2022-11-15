@@ -9,7 +9,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@public';
     public $css = [
-        '/v1/build/css/style.min.css'
+        '/themes/v1/build/css/style.min.css'
     ];
     public $js = [];
     public $depends = [
