@@ -2,7 +2,8 @@
 
 $params = require_once 'params.php';
 $routes = require_once 'routes/main.php';
-$database = require_once 'database.php';
+$database = require_once dirname(__DIR__, 2) . '/common/config/database.php';
+$aliases = require_once dirname(__DIR__, 2) . '/common/config/aliases.php';
 
 return [
     'id' => 'woopple',
@@ -11,13 +12,7 @@ return [
     'timeZone' => 'Asia/Almaty',
     'basePath' => dirname(__DIR__, 3),
     'controllerNamespace' => 'Woopple\Controllers',
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset',
-        '@public' => dirname(__DIR__, 3) . '/public',
-        '@wooppleSource' => dirname(__DIR__, 3) . '/src/Woopple',
-        '@wooppleApp' => dirname(__DIR__)
-    ],
+    'aliases' => $aliases,
     'bootstrap' => ['log'],
     'runtimePath' => dirname(__DIR__) . '/runtime',
     'vendorPath' => dirname(__DIR__, 3) . '/vendor',

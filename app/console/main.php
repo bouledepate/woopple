@@ -1,17 +1,12 @@
 <?php
 
-$database = require 'database.php';
+$database = require_once dirname(__DIR__, 2) . '/common/config/database.php';
+$aliases = require_once dirname(__DIR__, 2) . '/common/config/aliases.php';
 
 return [
     'id' => 'woopple-console',
     'basePath' => __DIR__,
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset',
-        '@public' => dirname(__DIR__, 3) . '/public',
-        '@wooppleSource' => dirname(__DIR__, 3) . '/src/Woopple',
-        '@wooppleApp' => dirname(__DIR__)
-    ],
+    'aliases' => $aliases,
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
