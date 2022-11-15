@@ -1,1 +1,1 @@
-{"version":3,"sources":["style.scss"],"names":[],"mappings":"AAAA,I,CACE,wB","file":"style.min.css","sourcesContent":["body {\n  background-color: orangered;\n}"]}
+{"version":3,"sources":["_fonts.scss","style.scss"],"names":[],"mappings":"A,AAAA,WACE,sB,CACA,uCCAF,M,CACE,iC,CACA,a","file":"style.min.css","sourcesContent":["@font-face {\n  font-family: \"Artifika\";\n  src: url(\"../fonts/Artifika-Regular.ttf\");\n}","@import \"fonts\";\n\n.brand {\n  font-family: 'Artifika', sans-serif;\n  color: #D8D9DB;\n}"]}

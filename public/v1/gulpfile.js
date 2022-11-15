@@ -44,7 +44,7 @@ const copyAssets = () => {
     return gulp
         .src(
             [
-                'source/fonts/**/*.{woff,woff2}',
+                'source/fonts/**/*.{woff,woff2,ttf}',
                 'source/images/**',
                 'source/libs/**',
                 'source/flickity/**',
