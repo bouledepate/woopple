@@ -32,10 +32,5 @@
  */
 
 return [
-    ['title' => Yii::t('site', 'home'), 'url' => Yii::$app->getHomeUrl()],
-    ['title' => 'Здарова', 'items' => [
-        ['title' => 'Чё', 'url' => '#'],
-        ['divider' => true],
-        ['title' => 'Чё', 'url' => '#']
-    ]]
+    ['title' => Yii::t('site', 'home'), 'url' => Yii::$app->getHomeUrl()]
 ];

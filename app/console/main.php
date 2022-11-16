@@ -1,7 +1,7 @@
 <?php
 
-$database = require_once dirname(__DIR__, 2) . '/common/config/database.php';
-$aliases = require_once dirname(__DIR__, 2) . '/common/config/aliases.php';
+$database = require_once dirname(__DIR__) . '/common/config/database.php';
+$aliases = require_once dirname(__DIR__) . '/common/config/aliases.php';
 
 return [
     'id' => 'woopple-console',
