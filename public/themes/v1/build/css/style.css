@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "Artifika";
+  src: url("../fonts/Artifika-Regular.ttf");
+}
+.brand {
+  font-family: "Artifika", sans-serif;
+  color: #D8D9DB;
+}

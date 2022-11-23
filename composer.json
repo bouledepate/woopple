@@ -4,7 +4,12 @@
   "type": "project",
   "require": {
     "yiisoft/yii2": "~2.0.0",
-    "vlucas/phpdotenv": "^5.5"
+    "vlucas/phpdotenv": "^5.5",
+    "yiisoft/yii2-bootstrap4": "*",
+    "hail812/yii2-adminlte3": "~1.1"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "~2.1.0"
   },
   "repositories": [
     {
@@ -14,6 +19,9 @@
   ],
   "autoload": {
     "psr-4": {
+      "Core\\": "src/Core",
+      "Console\\": "src/Console",
+      "Woopple\\": "src/Woopple"
     }
   },
   "authors": [
