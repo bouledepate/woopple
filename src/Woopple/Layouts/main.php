@@ -4,6 +4,8 @@
 
 /* @var $content string */
 
+/** @var string $layout */
+
 use yii\helpers\Html;
 use Core\Enums\Environment;
 
@@ -11,6 +13,7 @@ use Core\Enums\Environment;
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 $publishedRes = Yii::$app->assetManager->publish('@vendor/hail812/yii2-adminlte3/src/web/js');
+$layout = Yii::$app->session->get('layoutKey');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -29,7 +32,7 @@ $publishedRes = Yii::$app->assetManager->publish('@vendor/hail812/yii2-adminlte3
 <div class="wrapper">
     <?= \Woopple\Components\Widgets\Navbar::widget() ?>
 
-    <?= $this->render('sidebar', ['assetDir' => $assetDir]) ?>
+    <?= $this->render('sidebar', ['assetDir' => $assetDir, 'layout' => $layout]) ?>
 
     <?= $this->render('content', ['content' => $content, 'assetDir' => $assetDir]) ?>
 

@@ -2,6 +2,8 @@
 
 namespace Woopple\Components\Widgets;
 
+use Core\Enums\Permission;
+
 class Navbar extends Widget
 {
     public bool $notifications = false;
@@ -101,8 +103,11 @@ class Navbar extends Widget
     }
 
     // todo: Реализовать после настройки RBAC
-    protected function checkAccess(bool|string $permission): bool
+    protected function checkAccess(string|Permission $permission): bool
     {
+        if ($permission instanceof Permission) {
+
+        }
         return true;
     }
 }

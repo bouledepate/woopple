@@ -1,5 +1,8 @@
 <?php
 
+use yii\helpers\Url;
+use Core\Enums\Permission;
+
 /**
  * This file provides configuration for top navigation bar.
  * Default navigation link seems like:
@@ -32,5 +35,6 @@
  */
 
 return [
-    ['title' => Yii::t('site', 'home'), 'url' => Yii::$app->getHomeUrl()]
+    ['title' => Yii::t('site', 'home'), 'url' => Yii::$app->getHomeUrl()],
+    ['title' => Yii::t('site', 'admin'), 'url' => Url::to('/admin'), 'access' => Permission::ACCESS_ADMIN_PANEL]
 ];
