@@ -35,6 +35,13 @@ use Core\Enums\Permission;
  */
 
 return [
-    ['title' => Yii::t('site', 'home'), 'url' => Yii::$app->getHomeUrl()],
-    ['title' => Yii::t('site', 'admin'), 'url' => Url::to('/admin'), 'access' => Permission::ACCESS_ADMIN_PANEL]
+    [
+        'title' => Yii::t('site', 'home'),
+        'url' => Yii::$app->getHomeUrl()
+    ],
+    [
+        'title' => Yii::t('site', 'admin'),
+        'url' => Url::to('/admin'),
+        'access' => Permission::ACCESS_ADMIN_PANEL
+    ]
 ];

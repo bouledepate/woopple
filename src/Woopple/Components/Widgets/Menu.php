@@ -19,5 +19,15 @@ class Menu extends AdminlteMenu
     {
         $path = \Yii::getAlias('@wooppleApp') . "/config/navigation/sidebar/{$this->layout}.php";
         $this->items = require $path;
+        $this->checkAccess();
+    }
+
+    private function checkAccess(): void
+    {
+        foreach ($this->items as $key => $value) {
+            if (isset($value['access']) && !\Yii::$app->user->can($value['access'])) {
+                unset($this->items[$key]);
+            }
+        }
     }
 }

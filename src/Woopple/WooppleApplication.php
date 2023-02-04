@@ -2,8 +2,9 @@
 
 namespace Woopple;
 
-use Core\Components\Application;
 use yii\web\Application as YiiApp;
+use Core\Components\Application;
+use Woopple\Modules\Admin\AdminModule;
 
 class WooppleApplication extends Application
 {
@@ -14,11 +15,21 @@ class WooppleApplication extends Application
 
     protected function buildYiiApplication(): void
     {
+        $this->registerModuleDependencies();
         $this->application = new YiiApp($this->config);
     }
 
     public function run(): int
     {
         return $this->application->run();
+    }
+
+    public function registerModuleDependencies(): void
+    {
+        $this->config['modules'] = [
+            'admin' => [
+                'class' => AdminModule::class
+            ]
+        ];
     }
 }

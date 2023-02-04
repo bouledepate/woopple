@@ -102,12 +102,10 @@ class Navbar extends Widget
         $this->items = require $path;
     }
 
-    // todo: Реализовать после настройки RBAC
     protected function checkAccess(string|Permission $permission): bool
     {
-        if ($permission instanceof Permission) {
-
-        }
-        return true;
+        return $permission instanceof Permission
+            ? \Yii::$app->user->can($permission->value)
+            : \Yii::$app->user->can($permission);
     }
 }

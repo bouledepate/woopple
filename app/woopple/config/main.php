@@ -56,6 +56,20 @@ return [
                 ]
             ],
         ],
+        'user' => [
+            'loginUrl' => '/auth/login',
+            'identityClass' => \Woopple\Components\Auth\Identity::class,
+            'accessChecker' => \Woopple\Components\Rbac\AccessChecker::class
+        ],
+        // Last seen logic implementation
     ],
+    'on beforeAction' => function ($event) {
+        if (!Yii::$app->user->isGuest) {
+            $currentTime = new DateTimeImmutable(date(DATE_ATOM, time()));
+            \Woopple\Models\User\User::updateAll([
+                'last_seen' => $currentTime->format('Y-m-d H:i:s')
+            ], ['id' => Yii::$app->user->id]);
+        }
+    },
     'params' => $params,
 ];

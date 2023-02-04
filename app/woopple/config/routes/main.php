@@ -1,3 +1,5 @@
 <?php
 
-return [];
+return array_merge(
+    require 'admin.php'
+);

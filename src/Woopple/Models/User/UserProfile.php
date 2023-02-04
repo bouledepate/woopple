@@ -11,7 +11,8 @@ class UserProfile extends ActiveRecord
         return [
             [['first_name', 'second_name', 'last_name'], 'string'],
             [['first_name', 'second_name', 'last_name'], 'trim'],
-            ['birthday', 'date']
+            ['birthday', 'date'],
+            ['user_id', 'safe']
         ];
     }
 

@@ -40,5 +40,5 @@
  */
 
 return [
-    ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
+    ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug']],
 ];

@@ -56,13 +56,23 @@ use yii\helpers\Html;
             </li>
         <?php endif; ?>
 
-        <li class="nav-item">
-            <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-        </li>
-
-        <li class="nav-item">
-            <?= Html::a('<i class="fas fa-sign-in-alt"></i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-        </li>
+        <?php if (Yii::$app->user->isGuest): ?>
+            <li class="nav-item">
+                <?= Html::a(
+                    Yii::t('auth', 'login'),
+                    ['/auth/login'],
+                    ['data-method' => 'post', 'class' => 'nav-link']
+                ) ?>
+            </li>
+        <?php else: ?>
+            <li class="nav-item">
+                <?= Html::a(
+                    Yii::t('auth', 'logout'),
+                    ['/auth/logout'],
+                    ['data-method' => 'post', 'class' => 'nav-link']
+                ) ?>
+            </li>
+        <?php endif; ?>
 
         <?php if ($fullscreen): ?>
             <li class="nav-item">

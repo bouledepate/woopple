@@ -5,7 +5,7 @@ use yii\bootstrap4\Breadcrumbs;
 
 ?>
 <div class="content-wrapper px-4 py-2">
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -26,8 +26,10 @@ use yii\bootstrap4\Breadcrumbs;
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     <section class="content px-2">
-        <?= $content ?>
+        <div class="container-fluid">
+            <?= $content ?>
+        </div>
     </section>
 </div>

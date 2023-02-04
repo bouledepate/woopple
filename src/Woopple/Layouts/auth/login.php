@@ -12,7 +12,7 @@ use yii\helpers\Html;
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 $publishedRes = Yii::$app->assetManager->publish('@vendor/hail812/yii2-adminlte3/src/web/js');
-$layout = Yii::$app->session->get('layoutKey');
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -25,17 +25,11 @@ $layout = Yii::$app->session->get('layoutKey');
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="hold-transition sidebar-mini sidebar-collapse">
+<body class="login-page">
 <?php $this->beginBody() ?>
 
-<div class="wrapper">
-    <?= \Woopple\Components\Widgets\Navbar::widget() ?>
-
-    <?= $this->render('sidebar', ['assetDir' => $assetDir, 'layout' => $layout]) ?>
-
-    <?= $this->render('content', ['content' => $content, 'assetDir' => $assetDir]) ?>
-
-    <?= $this->render('footer') ?>
+<div class="login-box">
+    <?= $content ?>
 </div>
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
