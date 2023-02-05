@@ -38,7 +38,6 @@ class UserSecurity extends ActiveRecord
     {
         $this->password_hash = $password;
         $this->reset_pass = false;
-        $this->hashPassword();
         return $this->update();
     }
 

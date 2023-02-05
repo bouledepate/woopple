@@ -33,15 +33,28 @@ final class Rbac
         return array_map(fn(array $item) => new Permission($item['key'], $item['description']), $data);
     }
 
-    /** @return Permission[] */
-    public static function permissionsByRole(\Core\Enums\Role $requestRole): array
+    public static function role(\Core\Enums\Role|string $requestRole): Role
     {
         $data = self::roles();
+        $key = $requestRole instanceof \Core\Enums\Role ? $requestRole->value : $requestRole;
+        /** @var Role $role */
+        $result = array_filter($data, function (Role $role) use ($key) {
+            return $role->key == $key;
+        });
+        return array_shift($result);
+    }
+
+    /** @return Permission[] */
+    public static function permissionsByRole(\Core\Enums\Role|string $requestRole): array
+    {
+        $data = self::roles();
+        $key = $requestRole instanceof \Core\Enums\Role ? $requestRole->value : $requestRole;
 
         /** @var Role $role */
-        $role = array_filter($data, function (Role $role) use ($requestRole) {
-            return $role->key == $requestRole->value;
+        $result = array_filter($data, function (Role $role) use ($key) {
+            return $role->key == $key;
         });
+        $role = array_shift($result);
 
         return $role->permissions;
     }

@@ -16,8 +16,10 @@ class m221111_055332_create_user_table extends Migration
             'id' => $this->primaryKey(),
             'login' => $this->string(255)->notNull()->unique(),
             'email' => $this->string(255)->notNull()->unique(),
+            'status' => $this->integer()->notNull(),
             'created' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'last_seen' => $this->timestamp()
         ]);
     }
 

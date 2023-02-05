@@ -14,4 +14,12 @@ enum AccountStatus: int
             self::BLOCKED->value
         ];
     }
+
+    public static function titles(): array
+    {
+        return [
+            self::ACTIVE->value => '<span class="badge badge-info badge-pill">Активный</span>',
+            self::BLOCKED->value => '<span class="badge badge-danger badge-pill">Заблокирован</span>'
+        ];
+    }
 }

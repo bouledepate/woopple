@@ -11,19 +11,19 @@ return [
     ],
     'oCreateUser' => [
         'type' => 2,
-        'description' => 'Доступ к созданию пользователя'
+        'description' => 'Доступ к созданию пользователей'
     ],
     'oModifyUser' => [
         'type' => 2,
-        'description' => 'Доступ к обновлению данных пользователя'
+        'description' => 'Доступ к обновлению данных пользователей'
     ],
     'oBlockUser' => [
         'type' => 2,
-        'description' => 'Доступ к блокировке пользователя'
+        'description' => 'Доступ к блокировке пользователей'
     ],
     'oUnblockUser' => [
         'type' => 2,
-        'description' => 'Доступ к разблокировке пользователя'
+        'description' => 'Доступ к разблокировке пользователей'
     ],
     'rDefaultUser' => [
         'type' => 1,

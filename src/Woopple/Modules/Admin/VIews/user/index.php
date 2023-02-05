@@ -2,8 +2,13 @@
 /**
  * @var $this \yii\web\View
  * @var $stats array
+ * @var $users \yii\data\ActiveDataProvider
  */
-$this->title = Yii::t('site', 'admin-users-control');; ?>
+
+use Woopple\Components\Enums\AccountStatus;
+
+$statusList = AccountStatus::titles();
+$this->title = Yii::t('site', 'admin-users-control'); ?>
 
 <!-- Stats -->
 <div class="row">
@@ -44,7 +49,7 @@ $this->title = Yii::t('site', 'admin-users-control');; ?>
                     <ion-icon name="trash"></ion-icon>
                 </i>
             </div>
-<!--            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>-->
+            <!--            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>-->
         </div>
     </div>
 </div>
@@ -56,17 +61,41 @@ $this->title = Yii::t('site', 'admin-users-control');; ?>
                 <h3 class="card-title">Информация о пользователях</h3>
             </div>
             <div class="card-body">
-                Hello world
+                <?= \yii\grid\GridView::widget([
+                    'dataProvider' => $users,
+                    'columns' => [
+                        'login',
+                        'email',
+                        'status' => [
+                            'attribute' => 'status',
+                            'format' => 'raw',
+                            'value' => function ($data) use ($statusList) {
+                                return $statusList[$data->status];
+                            }],
+                        'created',
+                        'updated',
+                        'last_seen'
+                    ]
+                ]) ?>
             </div>
         </div>
     </section>
     <section class="col-lg-3">
         <div class="card">
             <div class="card-header">
+                <h3 class="card-title">Поиск пользователей</h3>
+            </div>
+            <div class="card-body">
+                Hello world
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
                 <h3 class="card-title">Панель инструментов</h3>
             </div>
             <div class="card-body">
-                <a href="<?= \yii\helpers\Url::to('/admin/user/create') ?>" class="btn btn-block bg-gradient-success btn-flat">
+                <a href="<?= \yii\helpers\Url::to('/admin/user/create') ?>"
+                   class="btn btn-block bg-gradient-success btn-flat">
                     <i class="fas fa-user"></i>
                     <?= Yii::t('admin/users', 'add_user_btn') ?>
                 </a>
@@ -78,14 +107,6 @@ $this->title = Yii::t('site', 'admin-users-control');; ?>
                     <i class="fas fa-ban"></i>
                     <?= Yii::t('admin/users', 'block_list_btn') ?>
                 </a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Информация о пользователях</h3>
-            </div>
-            <div class="card-body">
-                Hello world
             </div>
         </div>
     </section>

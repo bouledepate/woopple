@@ -6,6 +6,7 @@ use Core\Enums\Permission;
 use Woopple\Models\User\User;
 use Woopple\Components\Rbac\Rbac;
 use Woopple\Modules\Admin\Forms\CreateUserForm;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -61,7 +62,19 @@ class UserController extends Controller
     public function actionIndex(): string
     {
         $stats = User::stats();
-        return $this->render('index', ['stats' => $stats]);
+        $users = new ActiveDataProvider([
+            'query' => User::find()
+        ]);
+        return $this->render('index', ['stats' => $stats, 'users' => $users]);
+    }
+
+    public function actionSecurity(): string
+    {
+        $users = new ActiveDataProvider([
+            'query' => User::find()
+        ]);
+
+        return $this->render('security', ['users' => $users]);
     }
 
     public function actionCreate(): string|\yii\web\Response
@@ -83,18 +96,4 @@ class UserController extends Controller
         return $this->render('create', ['form' => $form, 'roles' => $roles]);
     }
 
-    public function actionModify(): string
-    {
-
-    }
-
-    public function actionBlock(): string
-    {
-
-    }
-
-    public function actionUnblock(): string
-    {
-
-    }
 }

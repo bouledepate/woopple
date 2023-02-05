@@ -11,7 +11,7 @@ $this->title = Yii::t('auth', 'login_page');
 
 <div class="card">
     <div class="card-body login-card-body">
-        <p class="login-box-msg">Войдите в систему, чтобы начать сеанс</p>
+        <p class="login-box-msg">Для сброса пароля заполните приведённую ниже форму</p>
         <?php $loginForm = ActiveForm::begin([]) ?>
         <?= $loginForm->field($form, 'login', [
             'template' => '{beginLabel}{labelTitle}{endLabel}
@@ -24,7 +24,7 @@ $this->title = Yii::t('auth', 'login_page');
                         </div>
                         {hint}{error}
                     </div>']) ?>
-        <?= $loginForm->field($form, 'password', [
+        <?= $loginForm->field($form, 'reason', [
             'template' => '{beginLabel}{labelTitle}{endLabel}
                     <div class="input-group mb-3">
                         {input}
@@ -34,19 +34,13 @@ $this->title = Yii::t('auth', 'login_page');
                             </div>
                         </div>
                         {hint}{error}
-                    </div>'])->passwordInput() ?>
+                    </div>'])->textarea() ?>
         <div class="row">
-            <div class="col-8">
-                <?= \yii\helpers\Html::activeCheckbox($form, 'remember', ['class' => 'icheck-primary']) ?>
-            </div>
-            <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">Войти</button>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block">Отправить запрос</button>
             </div>
         </div>
         <?php ActiveForm::end() ?>
-        <p class="mb-1">
-            <a href="/auth/restore">Я забыл свой пароль</a>
-        </p>
     </div>
 
 </div>

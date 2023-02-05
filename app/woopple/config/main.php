@@ -69,6 +69,10 @@ return [
             \Woopple\Models\User\User::updateAll([
                 'last_seen' => $currentTime->format('Y-m-d H:i:s')
             ], ['id' => Yii::$app->user->id]);
+        } else {
+            if ($event->action->controller->id !== 'auth') {
+                return Yii::$app->user->loginRequired();
+            };
         }
     },
     'params' => $params,
