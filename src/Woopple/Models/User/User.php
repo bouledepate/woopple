@@ -126,4 +126,11 @@ class User extends ActiveRecord
 
         return $result;
     }
+
+    /** @throws \Throwable */
+    public function changeStatus(AccountStatus $status): void
+    {
+        $this->setAttribute('status', $status->value);
+        $this->update(false);
+    }
 }

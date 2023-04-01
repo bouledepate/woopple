@@ -9,7 +9,8 @@
     "hail812/yii2-adminlte3": "~1.1",
     "kartik-v/yii2-widget-select2": "dev-master",
     "yiisoft/yii2-bootstrap": "^2.0",
-    "kartik-v/yii2-widget-datepicker": "dev-master"
+    "kartik-v/yii2-widget-datepicker": "dev-master",
+    "aryelds/yii2-sweet-alert": "@dev"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0"

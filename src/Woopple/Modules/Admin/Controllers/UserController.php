@@ -3,10 +3,12 @@
 namespace Woopple\Modules\Admin\Controllers;
 
 use Core\Enums\Permission;
+use Woopple\Models\Restore;
 use Woopple\Models\User\User;
 use Woopple\Components\Rbac\Rbac;
 use Woopple\Modules\Admin\Forms\CreateUserForm;
 use yii\data\ActiveDataProvider;
+use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -22,43 +24,38 @@ class UserController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'roles' => [
-                            Permission::ACCESS_USER_MANAGEMENT->value
-                        ]
+                        'roles' => [Permission::ACCESS_USER_MANAGEMENT->value]
                     ],
                     [
                         'allow' => true,
+                        'actions' => ['security'],
+                        'roles' => [Permission::ACCESS_SECURITY_CONTROL->value]
+                    ],
+                    ['allow' => true,
                         'actions' => ['create'],
-                        'roles' => [
-                            Permission::CREATE_USER->value
-                        ]
+                        'roles' => [Permission::CREATE_USER->value]
                     ],
                     [
                         'allow' => true,
                         'actions' => ['modify'],
-                        'roles' => [
-                            Permission::MODIFY_USER->value
-                        ]
+                        'roles' => [Permission::MODIFY_USER->value]
                     ],
                     [
                         'allow' => true,
                         'actions' => ['block'],
-                        'roles' => [
-                            Permission::BLOCK_USER->value
-                        ]
+                        'roles' => [Permission::BLOCK_USER->value]
                     ],
                     [
                         'allow' => true,
                         'actions' => ['unblock'],
-                        'roles' => [
-                            Permission::UNBLOCK_USER->value
-                        ]
-                    ]
+                        'roles' => [Permission::UNBLOCK_USER->value]
+                    ],
                 ],
             ]
         ];
     }
 
+    /** @throws Exception */
     public function actionIndex(): string
     {
         $stats = User::stats();
@@ -70,11 +67,11 @@ class UserController extends Controller
 
     public function actionSecurity(): string
     {
-        $users = new ActiveDataProvider([
-            'query' => User::find()
+        $requests = new ActiveDataProvider([
+            'query' => Restore::find()
         ]);
 
-        return $this->render('security', ['users' => $users]);
+        return $this->render('security', ['requests' => $requests]);
     }
 
     public function actionCreate(): string|\yii\web\Response

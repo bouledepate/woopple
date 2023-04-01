@@ -3,6 +3,7 @@
 namespace Woopple\Forms;
 
 use Woopple\Components\Auth\Identity;
+use Woopple\Components\Enums\AccountStatus;
 use Woopple\Models\User\User;
 use yii\base\Model;
 
@@ -46,6 +47,7 @@ class LoginForm extends Model
                 'message' => 'Пользователь с указанной электронной почтой в системе не найден'
             ],
             ['password', 'passwordValidator'],
+            ['login', 'statusValidator'],
             ['remember', 'boolean']
         ];
     }
@@ -85,5 +87,13 @@ class LoginForm extends Model
             $this->user->security->password_hash
         );
         if (!$validation) $this->addError($attribute, 'Введён неправильный пароль.');
+    }
+
+    public function statusValidator($attribute, $params): void
+    {
+        $this->findUser();
+        if ($this->user->status == AccountStatus::BLOCKED->value) {
+            $this->addError($this->login ? 'login' : 'email', 'Данный пользователь заблокирован в системе.');
+        }
     }
 }

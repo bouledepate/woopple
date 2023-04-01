@@ -38,6 +38,18 @@ $layout = Yii::$app->session->get('layoutKey');
     <?= $this->render('footer') ?>
 </div>
 
+<?php if (Yii::$app->session->hasFlash('error')): ?>
+<script type="application/javascript">
+    toastr.error('<?= Yii::$app->session->get('error') ?>')
+</script>
+<?php endif; ?>
+
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+    <script type="application/javascript">
+        toastr.success('<?= Yii::$app->session->get('success') ?>')
+    </script>
+<?php endif; ?>
+
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <?php $this->endBody() ?>

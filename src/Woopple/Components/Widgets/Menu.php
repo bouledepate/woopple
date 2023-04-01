@@ -9,7 +9,7 @@ class Menu extends AdminlteMenu
     public string $layout = 'site';
 
     public $options = [
-        'class' => 'nav nav-pills nav-sidebar flex-column nav-legacy nav-compact',
+        'class' => 'nav nav-pills nav-sidebar flex-column nav-legacy',
         'data-widget' => 'treeview',
         'role' => 'menu',
         'data-accordion' => 'false'
@@ -27,6 +27,17 @@ class Menu extends AdminlteMenu
         foreach ($this->items as $key => $value) {
             if (isset($value['access']) && !\Yii::$app->user->can($value['access'])) {
                 unset($this->items[$key]);
+            }
+        }
+
+        foreach ($this->items as $key => $value) {
+            if (isset($value['items'])) {
+                $available = array_map(
+                    function (array $item) {
+                        return isset($item['access']) && \Yii::$app->user->can($item['access']) ? $item : null;
+                    }, $value['items']
+                );
+                $this->items[$key]['items'] = array_filter($available);
             }
         }
     }

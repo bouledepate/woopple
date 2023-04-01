@@ -22,6 +22,11 @@ class m221111_055848_create_user_profile_table extends Migration
             'second_name' => $this->string(255),
             'last_name' => $this->string(255),
             'birthday' => $this->date(),
+            'education' => $this->string(),
+            'skills' => $this->string(),
+            'notes' => $this->string(),
+            'avatar' => $this->string(),
+            'position' => $this->string(255)
         ]);
 
         // creates index for column `user_id`

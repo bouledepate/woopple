@@ -99,14 +99,6 @@ $this->title = Yii::t('site', 'admin-users-control'); ?>
                     <i class="fas fa-user"></i>
                     <?= Yii::t('admin/users', 'add_user_btn') ?>
                 </a>
-                <a class="btn btn-block bg-gradient-info btn-flat">
-                    <i class="fa fa-lock"></i>
-                    <?= Yii::t('admin/users', 'security_management_btn') ?>
-                </a>
-                <a class="btn btn-block bg-gradient-info btn-flat">
-                    <i class="fas fa-ban"></i>
-                    <?= Yii::t('admin/users', 'block_list_btn') ?>
-                </a>
             </div>
         </div>
     </section>

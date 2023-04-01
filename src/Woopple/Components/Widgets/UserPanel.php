@@ -2,6 +2,8 @@
 
 namespace Woopple\Components\Widgets;
 
+use Woopple\Models\User\User;
+
 class UserPanel extends Widget
 {
     protected string $username;
@@ -10,6 +12,9 @@ class UserPanel extends Widget
     // todo: Инициализировать свойства виджета после создания логики пользователей и профилей.
     public function init(): void
     {
+        /** @var User $user */
+        $user = \Yii::$app->user->getIdentity();
+        $this->username = !is_null($user) ? $user->profile->shortlyName() : '';
         parent::init();
     }
 
@@ -21,9 +26,8 @@ class UserPanel extends Widget
     protected function getViewParams(): array
     {
         return [
-            'username' => '',
+            'username' => $this->username,
             'profileImage' => '',
-            // todo: Remove this.
             'assetDir' => \Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist')
         ];
     }

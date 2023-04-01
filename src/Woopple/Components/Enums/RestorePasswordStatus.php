@@ -24,11 +24,11 @@ enum RestorePasswordStatus: int
     public static function titles(): array
     {
         return [
-            self::NEW->value => 'Новый запрос',
-            self::IN_PROGRESS->value => 'На рассмотрении',
-            self::WAITING->value => 'В ожидании',
-            self::DONE->value => 'Завершён',
-            self::REFUSED->value => 'Отклонён'
+            self::NEW->value => '<span class="badge badge-info">Новый запрос</span>',
+            self::IN_PROGRESS->value => '<span class="badge badge-primary">На рассмотрении</span>',
+            self::WAITING->value => '<span class="badge badge-warning">В ожидании</span>',
+            self::DONE->value => '<span class="badge badge-success">Завершён</span>',
+            self::REFUSED->value => '<span class="badge badge-danger">Отклонён</span>'
         ];
     }
 }

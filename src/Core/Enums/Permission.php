@@ -8,8 +8,16 @@ enum Permission: string
 {
     case ACCESS_ADMIN_PANEL = 'oAccessAdminPanel';
     case ACCESS_USER_MANAGEMENT = 'oAccessUserManagement';
+    case ACCESS_SECURITY_CONTROL = 'oAccessSecurityControl';
+    case ACCESS_RESTORE_PASS_CONTROL = 'oAccessRestorePasswordControl';
+    case ACCESS_BLACKLIST_CONTROL = 'oAccessBlacklistControl';
+    case RESTORE_PASSWORD = 'oRestorePassword';
     case CREATE_USER = 'oCreateUser';
     case MODIFY_USER = 'oModifyUser';
     case BLOCK_USER = 'oBlockUser';
     case UNBLOCK_USER = 'oUnblockUser';
+    case ACCESS_DEPARTMENT_CONTROL = 'oAccessDepartmentControl';
+    case CREATE_DEPARTMENT = 'oCreateDepartment';
+    case MODIFY_DEPARTMENT = 'oModifyDepartment';
+    case REMOVE_DEPARTMENT = 'oRemoveDepartment';
 }
