@@ -87,7 +87,7 @@ $selectWidgetData = array_combine(
             console.log(event)
             let key = event.params.data.id
             $.ajax({
-                url: '/admin/json/role-info?key=' + key,
+                url: '/json/v1/role-info?key=' + key,
                 success: function (data) {
                     console.log(data)
                     addGroup(data)

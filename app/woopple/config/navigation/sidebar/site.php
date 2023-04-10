@@ -39,5 +39,58 @@
  * ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
  */
 
+use Core\Enums\Permission;
+use Woopple\Models\User\User;
+
 return [
+    [
+        'label' => Yii::t('navigation', 'human-resource'),
+        'access' => Permission::HR_ACCESS->value,
+        'header' => true
+    ],
+    [
+        'label' => Yii::t('navigation', 'hr-personal'),
+        'icon' => 'id-card',
+        'access' => Permission::HR_ACCESS_PERSONAL->value,
+        'items' => [
+            [
+                'label' => Yii::t('navigation', 'hr-employers'),
+                'url' => ['hr/employers'],
+                'iconStyle' => 'fas',
+                'icon' => 'users',
+                'access' => Permission::HR_ACCESS_EMPLOYERS->value
+            ],
+            [
+                'label' => Yii::t('navigation', 'hr-new-users'),
+                'url' => ['hr/beginners'],
+                'iconStyle' => 'fas',
+                'icon' => 'user-graduate',
+                'access' => Permission::HR_ACCESS_BEGINNERS->value,
+                'badge' => "<span class=\"right badge badge-danger\">"
+                    . User::find()->where(['status' => \Woopple\Components\Enums\AccountStatus::CREATED->value])->count()
+                    . "</span>",
+            ]
+        ]
+    ],
+    [
+        'label' => Yii::t('navigation', 'hr-structure'),
+        'icon' => 'database',
+        'access' => Permission::HR_ACCESS_STRUCTURE->value,
+        'items' => [
+            [
+                'label' => Yii::t('navigation', 'hr-departments'),
+                'url' => ['hr/departments'],
+                'iconStyle' => 'fas',
+                'icon' => 'network-wired',
+                'access' => Permission::VIEW_DEPARTMENT_LIST->value
+            ],
+            [
+                'label' => Yii::t('navigation', 'hr-teams'),
+                'url' => ['hr/teams'],
+                'iconStyle' => 'fas',
+                'icon' => 'frog',
+                'access' => Permission::VIEW_TEAM_LIST->value
+            ]
+        ]
+    ]
 ];

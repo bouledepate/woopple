@@ -6,4 +6,11 @@ return [
     'admin-sec-restore' => 'Восстановление пароля',
     'admin-sec-blacklist' => 'Блокировка',
     'admin-departments' => 'Отделы компании',
+    'human-resource' => 'HR отдел',
+    'hr-personal' => 'Персонал',
+    'hr-employers' => 'Сотрудники',
+    'hr-new-users' => 'Новички',
+    'hr-structure' => 'Орг. структура',
+    'hr-departments' => 'Отделы',
+    'hr-teams' => 'Команды'
 ];

@@ -4,11 +4,15 @@ namespace Woopple\Models\User;
 
 use Core\Enums\Role;
 use Woopple\Components\Enums\AccountStatus;
+use Woopple\Forms\Hr\FillProfileForm;
+use Woopple\Models\Structure\Department;
+use Woopple\Models\Structure\Team;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\ArrayExpression;
 use yii\db\Query;
 use yii\db\QueryBuilder;
+use yii\db\StaleObjectException;
 
 /**
  * @User
@@ -32,7 +36,7 @@ class User extends ActiveRecord
             ['login', 'string'],
             ['email', 'email'],
             ['status', 'in', 'range' => AccountStatus::values()],
-            ['status', 'default', 'value' => AccountStatus::ACTIVE->value],
+            ['status', 'default', 'value' => AccountStatus::CREATED->value],
             ['roles', 'each', 'rule' => ['in', 'range' => Role::values()]],
             [['created', 'updated', 'rawData', 'last_seen'], 'safe']
         ];
@@ -87,13 +91,33 @@ class User extends ActiveRecord
         return $object;
     }
 
-    public function fillProfile(): bool
+    /**
+     * @throws \Throwable
+     * @throws StaleObjectException
+     */
+    public function fillProfile(FillProfileForm $form): bool
     {
         $object = new UserProfile();
         $object->setAttributes([
-
+            'user_id' => $this->id,
+            'first_name' => $form->firstName,
+            'second_name' => $form->secondName,
+            'last_name' => $form->lastName,
+            'education' => $form->education,
+            'skills' => $form->skills,
+            'position' => $form->position
         ]);
-        return $object->save(false);
+
+        if ($object->save(false)) {
+            $team = Team::findOne(['id' => $form->team]);
+            if ($team->addMember($object->id)) {
+                return true;
+            } else {
+                $object->delete();
+            }
+        }
+
+        return false;
     }
 
     public function fillSecurityProperties(): bool
@@ -132,5 +156,17 @@ class User extends ActiveRecord
     {
         $this->setAttribute('status', $status->value);
         $this->update(false);
+    }
+
+    public function isDepartmentLead(): bool
+    {
+        $model = Department::find()->where(['lead' => $this->id])->one();
+        return !is_null($model);
+    }
+
+    public function isTeamLead(): bool
+    {
+        $model = Team::find()->where(['lead' => $this->id])->one();
+        return !is_null($model);
     }
 }

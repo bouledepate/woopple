@@ -83,14 +83,6 @@ $this->title = Yii::t('site', 'admin-users-control'); ?>
     <section class="col-lg-3">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Поиск пользователей</h3>
-            </div>
-            <div class="card-body">
-                Hello world
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
                 <h3 class="card-title">Панель инструментов</h3>
             </div>
             <div class="card-body">

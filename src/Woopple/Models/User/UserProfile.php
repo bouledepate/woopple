@@ -52,4 +52,11 @@ class UserProfile extends ActiveRecord
     {
         return "{$this->last_name} {$this->first_name} {$this->second_name}";
     }
+
+    /** @throws */
+    public function updatePosition(string $position): bool
+    {
+        $this->position = $position;
+        return (bool)$this->update();
+    }
 }

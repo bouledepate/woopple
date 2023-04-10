@@ -27,6 +27,18 @@ $this->title = $user->login === $identity->login ? 'Ваш профиль' : 'П
                 </div>
                 <h3 class="profile-username text-center"><?= $user->profile->shortlyName() ?></h3>
                 <p class="text-muted text-center"><?= $user->profile->position ?></p>
+                <ul class="list-group list-group-unbordered mb-3">
+                    <?php ?>
+                    <li class="list-group-item">
+                        <b>Отдел</b> <a class="float-right">1,322</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Команда/Подотдел</b> <a class="float-right">543</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Team Lead</b> <a class="float-right">13,287</a>
+                    </li>
+                </ul>
             </div>
         </div>
 

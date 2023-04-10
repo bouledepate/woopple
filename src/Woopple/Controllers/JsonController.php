@@ -1,8 +1,9 @@
 <?php
 
-namespace Woopple\Modules\Admin\Controllers;
+namespace Woopple\Controllers;
 
 use Woopple\Components\Rbac\Rbac;
+use Woopple\Models\Structure\Team;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -19,6 +20,17 @@ class JsonController extends Controller
                 'description' => $role->description,
                 'permissions' => $role->permissions
             ];
+        }
+
+        return [];
+    }
+
+    public function actionTeams(int $department): array
+    {
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (\Yii::$app->request->isAjax) {
+            return Team::findAll(['department_id' => $department]);
         }
 
         return [];

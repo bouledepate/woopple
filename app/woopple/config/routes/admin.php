@@ -9,5 +9,6 @@ return [
     '/admin/users/blacklist/remove' => 'admin/blacklist/unblock',
     '/admin/departments' => 'admin/department/index',
     '/admin/departments/add' => 'admin/department/add',
+    '/admin/departments/modify/<id>' => 'admin/department/modify',
     '/admin/departments/remove/<id>' => 'admin/department/remove',
 ];

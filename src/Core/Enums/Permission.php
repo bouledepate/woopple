@@ -19,5 +19,13 @@ enum Permission: string
     case ACCESS_DEPARTMENT_CONTROL = 'oAccessDepartmentControl';
     case CREATE_DEPARTMENT = 'oCreateDepartment';
     case MODIFY_DEPARTMENT = 'oModifyDepartment';
-    case REMOVE_DEPARTMENT = 'oRemoveDepartment';
+    case REMOVE_DEPARTMENT = 'oDeleteDepartment';
+    case HR_ACCESS = 'oAccessHumanResourceSection';
+    case HR_ACCESS_EMPLOYERS = 'oAccessHREmployersSection';
+    case HR_ACCESS_BEGINNERS = 'oAccessHRBeginnersSection';
+    case FILL_PROFILE = 'oFillProfile';
+    case HR_ACCESS_PERSONAL = 'oViewPersonalSection';
+    case HR_ACCESS_STRUCTURE = 'oViewStructureSection';
+    case VIEW_DEPARTMENT_LIST = 'oViewDepartmentList';
+    case VIEW_TEAM_LIST = 'oViewTeamList';
 }
