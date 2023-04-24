@@ -4,6 +4,7 @@ namespace Woopple\Controllers;
 
 use Woopple\Components\Rbac\Rbac;
 use Woopple\Models\Structure\Team;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -25,14 +26,20 @@ class JsonController extends Controller
         return [];
     }
 
-    public function actionTeams(int $department): array
+    public function actionTeams(): array
     {
         \Yii::$app->response->format = Response::FORMAT_JSON;
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $id = $parents[0];
+                $output = array_map(function (Team $team) {
+                    return ['id' => $team->id, 'name' => $team->name];
+                }, Team::findAll(['department_id' => $id]));
 
-        if (\Yii::$app->request->isAjax) {
-            return Team::findAll(['department_id' => $department]);
+                return ['output' => $output, 'selected' => ''];
+            }
         }
-
-        return [];
+        return ['output' => '', 'selected' => ''];
     }
 }

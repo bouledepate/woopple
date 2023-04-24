@@ -5,6 +5,8 @@ namespace Woopple\Forms\Hr;
 use Woopple\Models\Structure\Department;
 use Woopple\Models\Structure\Team;
 use yii\base\Model;
+use yii\bootstrap\Html;
+use yii\helpers\ArrayHelper;
 
 class FillProfileForm extends Model
 {
@@ -22,7 +24,9 @@ class FillProfileForm extends Model
 
     public function init(): void
     {
-        $this->departments = Department::find()->all();
+        $departments = Department::find()->all();
+        $this->departments = ArrayHelper::map($departments, 'id', 'name');
+
         parent::init();
     }
 

@@ -7,6 +7,7 @@ use Woopple\Components\Enums\AccountStatus;
 use Woopple\Forms\Hr\FillProfileForm;
 use Woopple\Models\Structure\Department;
 use Woopple\Models\Structure\Team;
+use Woopple\Models\Structure\TeamMember;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\ArrayExpression;
@@ -110,7 +111,7 @@ class User extends ActiveRecord
 
         if ($object->save(false)) {
             $team = Team::findOne(['id' => $form->team]);
-            if ($team->addMember($object->id)) {
+            if ($team->addMember($this->id)) {
                 return true;
             } else {
                 $object->delete();
@@ -168,5 +169,29 @@ class User extends ActiveRecord
     {
         $model = Team::find()->where(['lead' => $this->id])->one();
         return !is_null($model);
+    }
+
+    public function getDepartment(): ?Department
+    {
+        if ($this->isDepartmentLead()) {
+            $department = Department::findOne(['lead' => $this->id]);
+        } else {
+            $team = $this->getTeam();
+            if (is_null($team)) {
+                return null;
+            }
+            $department = $team->department;
+        }
+        return $department ?? null;
+    }
+
+    public function getTeam(): ?Team
+    {
+        $member = TeamMember::findOne(['user_id' => $this->id]);
+        if (is_null($member)) {
+            return null;
+        }
+        $team = Team::findOne(['id' => $member->team->id]);
+        return $team ?? null;
     }
 }

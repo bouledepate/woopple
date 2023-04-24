@@ -3,6 +3,7 @@
 namespace Woopple\Controllers;
 
 use yii\db\Exception;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\ErrorAction;
@@ -25,8 +26,8 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex(): string
+    public function actionIndex(): \yii\web\Response
     {
-        return $this->render('index');
+        return $this->redirect(Url::to(['/profile']));
     }
 }

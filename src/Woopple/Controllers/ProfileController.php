@@ -2,6 +2,7 @@
 
 namespace Woopple\Controllers;
 
+use Woopple\Components\Enums\AccountStatus;
 use Woopple\Forms\ProfileForm;
 use Woopple\Models\Event\Event;
 use Woopple\Models\User\User;
@@ -25,7 +26,7 @@ class ProfileController extends Controller
             $user = User::findOneByLogin($login);
         }
 
-        if (is_null($user)) {
+        if (is_null($user) || $user->status == AccountStatus::CREATED->value) {
             throw new NotFoundHttpException();
         }
 

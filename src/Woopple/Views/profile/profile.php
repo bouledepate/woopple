@@ -28,16 +28,52 @@ $this->title = $user->login === $identity->login ? 'Ваш профиль' : 'П
                 <h3 class="profile-username text-center"><?= $user->profile->shortlyName() ?></h3>
                 <p class="text-muted text-center"><?= $user->profile->position ?></p>
                 <ul class="list-group list-group-unbordered mb-3">
-                    <?php ?>
-                    <li class="list-group-item">
-                        <b>Отдел</b> <a class="float-right">1,322</a>
-                    </li>
-                    <li class="list-group-item">
-                        <b>Команда/Подотдел</b> <a class="float-right">543</a>
-                    </li>
-                    <li class="list-group-item">
-                        <b>Team Lead</b> <a class="float-right">13,287</a>
-                    </li>
+                    <?php if ($department = $user->getDepartment()): ?>
+                        <li class="list-group-item">
+                            <b>Отдел</b> <span class="float-right"><?= $department->name ?></span>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($user->isDepartmentLead()): ?>
+                        <li class="list-group-item">
+                            <b>Руководитель</b> <span class="float-right">
+                                <?php if (Yii::$app->user->id === $user->id): ?>
+                                    <b><?= 'Вы' ?></b>
+                                <?php else: ?>
+                                    <?= $department->departmentLead->profile->shortlyName() ?>
+                                <?php endif; ?>
+                            </span>
+                        </li>
+                    <?php else: ?>
+                        <?php if ($team = $user->getTeam()): ?>
+                            <li class="list-group-item">
+                                <b>Команда/Подотдел</b> <span class="float-right"><?= $team->name ?></span>
+                            </li>
+                            <?php if (!$user->isTeamLead()): ?>
+                                <li class="list-group-item">
+                                    <b>Руководитель</b>
+                                    <?php if (is_null($team?->lead)): ?>
+                                        <span class="float-right">Не назначен</span>
+                                    <?php else: ?>
+                                        <a href="<?= \yii\helpers\Url::to(['profile', 'login' => $team?->teamLead->login]) ?>"
+                                           class="float-right"><?= $team?->teamLead->profile->shortlyName() ?></a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php else: ?>
+                                <li class="list-group-item">
+                                    <b>Руководитель</b> <span class="float-right">
+                                    <?php if (Yii::$app->user->id === $user->id): ?>
+                                        <b><?= 'Вы' ?></b>
+                                    <?php else: ?>
+                                        <?= $team->teamLead->profile->shortlyName() ?>
+                                    <?php endif; ?>
+                                </span>
+                                </li>
+                            <?php endif; ?>
+
+                        <?php endif; ?>
+                    <?php endif; ?>
+
                 </ul>
             </div>
         </div>
