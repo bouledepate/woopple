@@ -22,7 +22,7 @@ $this->title = $user->login === $identity->login ? 'Ваш профиль' : 'П
         <div class="card card-primary card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="/assets/1fae73d4/img/user2-160x160.jpg"
+                    <img class="profile-user-img img-fluid img-circle" src="/themes/v1/build/images/user2-160x160.jpg"
                          alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center"><?= $user->profile->shortlyName() ?></h3>

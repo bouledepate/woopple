@@ -1,5 +1,7 @@
 <?php
 
+use Woopple\Modules\Admin\AdminModule;
+
 $params = require_once 'params.php';
 $routes = require_once 'routes/main.php';
 $database = require_once dirname(__DIR__, 2) . '/common/config/database.php';
@@ -74,5 +76,5 @@ return [
             };
         }
     },
-    'params' => $params,
+    'params' => $params
 ];

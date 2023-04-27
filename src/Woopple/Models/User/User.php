@@ -168,7 +168,7 @@ class User extends ActiveRecord
     {
         $connection = \Yii::$app->getDb();
         $command = $connection->createCommand("SELECT status, count(*) as total, count(CASE WHEN status = 2 THEN status END) 
-            AS blocked, count(CASE WHEN created > now() - INTERVAL '15 DAY' THEN created end) AS new FROM wooppledb.public.user group by status");
+            AS blocked, count(CASE WHEN created > now() - INTERVAL '15 DAY' THEN created end) AS new FROM woopple_db.public.user group by status");
         $response = $command->queryAll();
 
         $result = ['total' => 0, 'blocked' => 0, 'new' => 0];
