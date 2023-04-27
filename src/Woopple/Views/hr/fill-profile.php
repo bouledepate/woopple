@@ -5,7 +5,7 @@
  */
 
 use yii\web\JsExpression;
-
+// comment.
 $this->title = 'Заполнение профиля сотрудника';
 ?>
 
