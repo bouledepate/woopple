@@ -4,7 +4,18 @@
   "type": "project",
   "require": {
     "yiisoft/yii2": "~2.0.0",
-    "vlucas/phpdotenv": "^5.5"
+    "yiisoft/yii2-bootstrap4": "*",
+    "vlucas/phpdotenv": "^5.5",
+    "hail812/yii2-adminlte3": "~1.1",
+    "kartik-v/yii2-widget-select2": "dev-master",
+    "yiisoft/yii2-bootstrap": "^2.0",
+    "kartik-v/yii2-widget-datepicker": "dev-master",
+    "aryelds/yii2-sweet-alert": "@dev",
+    "kartik-v/yii2-widget-depdrop": "dev-master",
+    "kartik-v/yii2-widget-datetimepicker": "dev-master"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "~2.1.0"
   },
   "repositories": [
     {
@@ -14,6 +25,10 @@
   ],
   "autoload": {
     "psr-4": {
+      "Core\\": "src/Core",
+      "Console\\": "src/Console",
+      "Woopple\\": "src/Woopple",
+      "Woopple\\Modules\\Admin\\": "src/Woopple/Modules/Admin"
     }
   },
   "authors": [
