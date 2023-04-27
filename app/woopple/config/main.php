@@ -22,7 +22,6 @@ return [
         'request' => [
             'cookieValidationKey' => 'wmYG0NTg6j2ZYqe2pVu8zsQfJs5ucyouNM1RdFDu'
         ],
-        // todo: Настроить логирование.
         'log' => [
             'traceLevel' => 0,
             'targets' => [

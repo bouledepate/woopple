@@ -8,6 +8,9 @@ use Woopple\Forms\Hr\FillProfileForm;
 use Woopple\Models\Structure\Department;
 use Woopple\Models\Structure\Team;
 use Woopple\Models\Structure\TeamMember;
+use Woopple\Models\Test\Test;
+use Woopple\Models\Test\TestAvailability;
+use Woopple\Models\Test\UserAnswer;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\ArrayExpression;
@@ -73,6 +76,32 @@ class User extends ActiveRecord
     public static function findOneByEmail(string $email): ?self
     {
         return self::findOne(['email' => $email]) ?? null;
+    }
+
+    public function getTestsCount(): int
+    {
+        $department = $this->getDepartment();
+        $team = $this->getTeam();
+
+        $tests = Test::find()
+            ->where(['availability' => TestAvailability::COMMON->value])
+            ->orWhere(['availability' => TestAvailability::USER_ONLY->value, 'subject_id' => $this->id])
+            ->orWhere(['availability' => TestAvailability::TEAM_ONLY->value, 'subject_id' => $team?->id])
+            ->orWhere(['availability' => TestAvailability::DEP_ONLY->value, 'subject_id' => $department?->id])
+            ->all();
+
+        /**
+         * @var int $key
+         * @var Test $model
+         */
+        foreach ($tests as $key => $model) {
+            $obj = UserAnswer::findOne(['user_id' => \Yii::$app->user->id, 'test_id' => $model->id]);
+            if (!is_null($obj)) {
+                unset($tests[$key]);
+            }
+        }
+
+        return count($tests);
     }
 
     public static function newObject(UserManagementInterface $management): self

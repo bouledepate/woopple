@@ -10,6 +10,9 @@ enum Role: string
     case ADMIN = 'rAdmin';
     case SECURITY_MANAGER = 'rSecurityManager';
     case HR = 'rHR';
+    case LEAD = 'rLead';
+//    case DEPARTMENT_LEAD = 'rDepartmentLead';
+//    case TEAM_LEAD = 'rTeamLead';
 
     public static function values(): array
     {
@@ -17,7 +20,10 @@ enum Role: string
             self::DEFAULT->value,
             self::ADMIN->value,
             self::SECURITY_MANAGER->value,
-            self::HR->value
+            self::HR->value,
+            self::LEAD->value,
+//            self::DEPARTMENT_LEAD->value,
+//            self::TEAM_LEAD->value,
         ];
     }
 }

@@ -12,5 +12,8 @@ return [
     'hr-new-users' => 'Новички',
     'hr-structure' => 'Орг. структура',
     'hr-departments' => 'Отделы',
-    'hr-teams' => 'Команды'
+    'hr-teams' => 'Команды',
+    'lead-section' => 'Раздел руководителя',
+    'lead-tests' => 'Тестирование',
+    'user-tests' => 'Ваши тесты'
 ];

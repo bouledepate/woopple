@@ -48,5 +48,15 @@ return [
             'oViewDepartmentList',
             'oViewTeamList'
         ]
-    ]
+    ],
+    'rLead' => [
+        'type' => 1,
+        'description' => 'Руководитель отдела/команды',
+        'children' => [
+            'oAccessLeadSection',
+            'oTestsControl'
+        ]
+    ],
+//    'rDepartmentLead' => [],
+//    'rTeamLead' => []
 ];

@@ -44,6 +44,27 @@ use Woopple\Models\User\User;
 
 return [
     [
+        'label' => Yii::t('navigation', 'user-tests'),
+        'url' => ['/tests'],
+        'iconStyle' => 'fas',
+        'icon' => 'file-alt',
+        'badge' => "<span class=\"right badge badge-danger\">"
+            . Yii::$app->user->identity?->getTestsCount()
+            . "</span>",
+    ],
+    [
+        'label' => Yii::t('navigation', 'lead-section'),
+        'access' => Permission::ACCESS_LEAD_SECTION->value,
+        'header' => true
+    ],
+    [
+        'label' => Yii::t('navigation', 'lead-tests'),
+        'url' => ['test/control'],
+        'iconStyle' => 'fas',
+        'icon' => 'file-alt',
+        'access' => Permission::TESTS_CONTROL->value
+    ],
+    [
         'label' => Yii::t('navigation', 'human-resource'),
         'access' => Permission::HR_ACCESS->value,
         'header' => true
@@ -53,13 +74,13 @@ return [
         'icon' => 'id-card',
         'access' => Permission::HR_ACCESS_PERSONAL->value,
         'items' => [
-            [
-                'label' => Yii::t('navigation', 'hr-employers'),
-                'url' => ['hr/employers'],
-                'iconStyle' => 'fas',
-                'icon' => 'users',
-                'access' => Permission::HR_ACCESS_EMPLOYERS->value
-            ],
+//            [
+//                'label' => Yii::t('navigation', 'hr-employers'),
+//                'url' => ['hr/employers'],
+//                'iconStyle' => 'fas',
+//                'icon' => 'users',
+//                'access' => Permission::HR_ACCESS_EMPLOYERS->value
+//            ],
             [
                 'label' => Yii::t('navigation', 'hr-new-users'),
                 'url' => ['hr/beginners'],

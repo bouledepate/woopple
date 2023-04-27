@@ -88,5 +88,13 @@ return [
     'oViewTeamList' => [
         'type' => 2,
         'description' => 'Доступ к просмотру существующих команд'
-    ]
+    ],
+    'oAccessLeadSection' => [
+        'type' => 2,
+        'description' => 'Доступ к разделу руководителя'
+    ],
+    'oTestsControl' => [
+        'type' => 2,
+        'description' => 'Доступ к управлению тестированиями'
+    ],
 ];

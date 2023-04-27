@@ -26,8 +26,12 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex(): \yii\web\Response
+    public function actionIndex(): \yii\web\Response|string
     {
-        return $this->redirect(Url::to(['/profile']));
+        if (\Yii::$app->user->isGuest) {
+            return $this->render('index');
+        } else {
+            return $this->redirect(Url::to(['/profile']));
+        }
     }
 }

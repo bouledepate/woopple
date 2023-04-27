@@ -28,4 +28,6 @@ enum Permission: string
     case HR_ACCESS_STRUCTURE = 'oViewStructureSection';
     case VIEW_DEPARTMENT_LIST = 'oViewDepartmentList';
     case VIEW_TEAM_LIST = 'oViewTeamList';
+    case ACCESS_LEAD_SECTION = 'oAccessLeadSection';
+    case TESTS_CONTROL = 'oTestsControl';
 }

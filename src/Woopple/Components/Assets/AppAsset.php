@@ -13,7 +13,9 @@ class AppAsset extends AssetBundle
     public $css = [
         '/themes/v1/build/css/style.min.css'
     ];
-    public $js = [];
+    public $js = [
+        '/themes/v1/build/js/tests.js'
+    ];
     public $depends = [
         'yii\web\YiiAsset',
         'hail812\adminlte3\assets\FontAwesomeAsset',
