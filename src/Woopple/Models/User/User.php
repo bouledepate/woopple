@@ -10,6 +10,7 @@ use Woopple\Models\Structure\Team;
 use Woopple\Models\Structure\TeamMember;
 use Woopple\Models\Test\Test;
 use Woopple\Models\Test\TestAvailability;
+use Woopple\Models\Test\TestState;
 use Woopple\Models\Test\UserAnswer;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -88,6 +89,7 @@ class User extends ActiveRecord
             ->orWhere(['availability' => TestAvailability::USER_ONLY->value, 'subject_id' => $this->id])
             ->orWhere(['availability' => TestAvailability::TEAM_ONLY->value, 'subject_id' => $team?->id])
             ->orWhere(['availability' => TestAvailability::DEP_ONLY->value, 'subject_id' => $department?->id])
+            ->andWhere(['in', 'state', [TestState::PROCESS->value, TestState::PASSED->value]])
             ->all();
 
         /**

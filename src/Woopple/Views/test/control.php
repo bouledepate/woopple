@@ -5,14 +5,17 @@
  * @var \yii\data\ActiveDataProvider $dataProvider
  */
 
+use Woopple\Models\Test\Test;
 use Woopple\Models\Test\TestState;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = 'Раздел тестирования'; ?>
 
 
 <div class="row">
     <div class="col-md-3">
-        <div class="card card-success card-outline">
+        <div class="card card-primary card-outline">
             <div class="card-header">
                 <span class="h4">Панель управления</span>
             </div>
@@ -21,7 +24,7 @@ $this->title = 'Раздел тестирования'; ?>
                     <li class="list-group-item text-justify">
                         Инструмент тестирования отличное решение для сбора информации о сотрудниках: их стремления,
                         уровень знаний и заинтересованности. Чтобы создать тест, нажмите на кнопку ниже.
-                        <a href="<?= \yii\helpers\Url::to(['test/create-test']) ?>" class="btn btn-info btn-block mt-3">Создать
+                        <a href="<?= \yii\helpers\Url::to(['test/create-test']) ?>" class="btn btn-primary btn-block mt-3">Создать
                             новый тест</a>
                     </li>
                 </ul>
@@ -73,6 +76,23 @@ $this->title = 'Раздел тестирования'; ?>
                             'format' => 'html',
                             'value' => function (\Woopple\Models\Test\Test $data) {
                                 return $data->currentProgress();
+                            }
+                        ],
+                        [
+                            'class' => \yii\grid\ActionColumn::class,
+                            'template' => '{respondents}',
+                            'buttons' => [
+                                'respondents' => function ($url, Test $model) {
+                                    return Html::a('Респонденты', $url, [
+                                        'title' => 'Пройти тест',
+                                        'class' => 'btn btn-sm btn-info btn-block'
+                                    ]);
+                                },
+                            ],
+                            'urlCreator' => function ($action, $model, $key, $index) {
+                                return match ($action) {
+                                    'respondents' => Url::to(['test/respondents', 'id' => $model->id])
+                                };
                             }
                         ]
                     ]

@@ -2,6 +2,7 @@
 
 namespace Woopple\Models\Test;
 
+use Woopple\Models\User\User;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -15,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property boolean $is_multiple
  * @property-read Test $test
  * @property-read array $answers
- * @property-read QuestionAnswer $correctAnswer
+ * @property-read array $correctAnswer
  */
 class Question extends ActiveRecord
 {
@@ -68,9 +69,16 @@ class Question extends ActiveRecord
         return $this->hasMany(QuestionAnswer::class, ['question_id' => 'id']);
     }
 
-    public function getCorrectAnswer(): ActiveQuery
+    /**
+     * @return array<QuestionAnswer>
+     */
+    public function getCorrectAnswers(): array
     {
-        return $this->hasOne(QuestionAnswer::class, ['question_id' => 'id'])
-            ->where(['is_correct' => true]);
+        return QuestionAnswer::findAll(['question_id' => $this->id, 'is_correct' => true]);
+    }
+
+    public function fetchUserAnswer(User $user): ?UserAnswer
+    {
+        return UserAnswer::findOne(['user_id' => $user->id, 'question_id' => $this->id]);
     }
 }

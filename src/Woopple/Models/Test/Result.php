@@ -16,5 +16,12 @@ use yii\db\ActiveRecord;
  */
 class Result extends ActiveRecord
 {
+    public function rules()
+    {
+        return [
+            [['id', 'user_id', 'reviewer_id', 'test_id', 'mark', 'feedback'], 'safe']
+        ];
+    }
+
 
 }

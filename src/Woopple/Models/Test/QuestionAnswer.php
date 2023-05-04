@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property bool $is_correct
  * @property-read Question $question
  */
-class QuestionAnswer extends ActiveRecord
+class QuestionAnswer extends ActiveRecord implements \Stringable
 {
     public function rules(): array
     {
@@ -37,5 +37,10 @@ class QuestionAnswer extends ActiveRecord
     public function getQuestion(): ActiveQuery
     {
         return $this->hasOne(Question::class, ['id' => 'question_id']);
+    }
+
+    public function __toString()
+    {
+        return $this->text;
     }
 }

@@ -2,11 +2,14 @@
 
 namespace Woopple\Controllers;
 
+use Woopple\Components\Enums\AccountStatus;
 use Woopple\Forms\AnswersForm;
 use Woopple\Models\Structure\Department;
 use Woopple\Models\Structure\Team;
+use Woopple\Models\Test\Result;
 use Woopple\Models\Test\Test;
 use Woopple\Models\Test\TestAvailability;
+use Woopple\Models\Test\TestState;
 use Woopple\Models\Test\UserAnswer;
 use Woopple\Models\User\User;
 use yii\data\ActiveDataProvider;
@@ -27,6 +30,29 @@ class TestController extends Controller
     public function actionStartTest(int $id)
     {
         $test = Test::findOne($id);
+        /** @var User $user */
+        $user = \Yii::$app->user->getIdentity();
+
+        if (is_null($test)) {
+            $this->notice('error', 'Выбранного теста не существует.');
+            return $this->redirect(['test/user-tests']);
+        }
+
+        if ($test->state !== TestState::PROCESS->value) {
+            return $this->validateTestState($test);
+        }
+
+        if (!$test->isAvailableFor($user)) {
+            $this->notice('error', 'Данный тест для вас недоступен.');
+            return $this->redirect(['test/user-tests']);
+        }
+
+        if ($test->isAlreadyPassedBy($user)) {
+            $this->notice('error', 'Вы уже проходили это тестирование.');
+            return $this->redirect(['test/user-tests']);
+        }
+
+
         $questions = $test->questions;
 
         if (\Yii::$app->request->isPost) {
@@ -41,20 +67,89 @@ class TestController extends Controller
         ]);
     }
 
-    public function actionUserResults(int $id)
+    public function actionRespondents(int $id)
     {
+        $test = Test::findOne($id);
+        if (is_null($test)) {
+            $this->notice('error', 'Невозможно определить респондентов. Выбранного теста не существует.');
+            return $this->redirect(['test/user-tests']);
+        }
+        $respondents = $test->respondents();
 
+        asort($respondents);
+
+        return $this->render('respondents', compact('test', 'respondents'));
     }
 
-    public function actionUserResultsByLogin(int $id, string $login)
+    public function actionReview(int $test, int $user)
     {
+        $test = Test::findOne($test);
+        if (is_null($test)) {
+            $this->notice('error', 'Невозможно проверить ответы по тесту, которого не существует.');
+            return $this->redirect(['test/control']);
+        }
 
+        $user = User::findOne(['id' => $user]);
+        if (is_null($user)) {
+            $this->notice('error', 'Невозможно провести ревью. Пользователя не существует.');
+            return $this->redirect(['test/respondents', 'id' => $test->id]);
+        }
+
+        if (!$test->isAlreadyPassedBy($user)) {
+            $this->notice('error', 'Невозможно провести ревью. Пользователь ещё не проходил выбранный тест.');
+            return $this->redirect(['test/respondents', 'id' => $test->id]);
+        }
+
+        $answers = $test->getAnswersByUser($user);
+
+        if (\Yii::$app->request->isPost) {
+            $result = $test->submitResults(
+                $user,
+                \Yii::$app->request->post('feedback'),
+                \Yii::$app->request->post('correct')
+            );
+
+            if (!is_null($result)) {
+                $this->notice('success', 'Ответы респондента были успешно провалидированы и подтверждены.');
+                return $this->redirect(['test/user-results', 'test' => $test->id, 'login' => $user->login]);
+            } else {
+                $this->notice('warning', 'При записи результатов возникли неполадки.');
+                return $this->redirect(['test/respondents', 'id' => $test->id]);
+            }
+        }
+
+        return $this->render('review', compact('test', 'user', 'answers'));
     }
 
-//'/tests' => 'test/user-tests',
-//'/tests/start/<id>' => 'test/start-test',
-//'/tests/result/<id>' => 'test/user-results',
-//'/tests/result/<id>/by/<login>' => 'test/user-results-by-login'
+    public function actionUserResults(int $test, string $login)
+    {
+        $test = Test::findOne(['id' => $test]);
+        if (is_null($test)) {
+            $this->notice('error', 'Невозможно получить результаты по тестированию. Выбранного теста не существует.');
+            return $this->redirect(['test/user-tests']);
+        }
+
+        $user = User::findOne(['login' => $login, 'status' => AccountStatus::ACTIVE->value]);
+        if (is_null($user)) {
+            $this->notice('error', 'Невозможно получить результаты по тестированию. Выбранного пользователя не существует.');
+            return $this->redirect(['test/user-tests']);
+        }
+
+        $result = Result::findOne(['test_id' => $test->id, 'user_id' => $user->id]);
+        if (is_null($result)) {
+            $this->notice('error', 'Невозможно получить результаты по тестированию. Они не сформированы.');
+            return $this->redirect(['test/user-tests']);
+        }
+
+        if ($test->is_closed && ($result->reviewer_id != \Yii::$app->user->id || $result->user_id != \Yii::$app->user->id)) {
+            $this->notice('error', 'Невозможно получить результаты по тестированию. Доступ к ним ограничен.');
+            return $this->redirect(['test/user-tests']);
+        }
+
+        $answers = $test->getAnswersByUser($user);
+
+        return $this->render('user-results', compact('test', 'user', 'result', 'answers'));
+    }
 
     public function actionUserTests()
     {
@@ -65,9 +160,10 @@ class TestController extends Controller
         $notFinishedDataProvider = new ActiveDataProvider([
             'query' => Test::find()
                 ->where(['availability' => TestAvailability::COMMON->value])
-                ->orWhere(['availability' => TestAvailability::USER_ONLY->value, 'subject_id' => intval($this->id)])
+                ->orWhere(['availability' => TestAvailability::USER_ONLY->value, 'subject_id' => intval($user->id)])
                 ->orWhere(['availability' => TestAvailability::TEAM_ONLY->value, 'subject_id' => $team?->id ? intval($team->id) : null])
                 ->orWhere(['availability' => TestAvailability::DEP_ONLY->value, 'subject_id' => $department?->id ? intval($department->id) : null])
+                ->andWhere(['in', 'state', [TestState::PROCESS->value, TestState::PASSED->value]])
         ]);
 
         list($notFinished, $finished) = $this->filterTests($notFinishedDataProvider->getModels());
@@ -198,5 +294,23 @@ class TestController extends Controller
             'title' => 'Раздел тестирования',
             'message' => $message
         ]);
+    }
+
+    private function validateTestState(Test $test)
+    {
+        if (TestState::tryFrom($test->state) == TestState::CANCELED) {
+            $this->notice('error', 'Данный тест недоступен. Он был отменён.');
+            return $this->redirect(['test/user-tests']);
+        }
+
+        if (TestState::tryFrom($test->state) == TestState::EXPIRED) {
+            $this->notice('error', 'Данный тест недоступен. Он был просрочён. Крайний срок прохождения был: ' . $test->expiration_date);
+            return $this->redirect(['test/user-tests']);
+        }
+
+        if (TestState::tryFrom($test->state) == TestState::PASSED) {
+            $this->notice('error', 'Данный тест недоступен. Все респонденты уже прошли его.');
+            return $this->redirect(['test/user-tests']);
+        }
     }
 }

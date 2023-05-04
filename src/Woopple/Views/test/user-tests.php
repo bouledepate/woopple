@@ -19,6 +19,7 @@ $this->title = 'Список доступных тестов'; ?>
     <div class="card-body">
         <?= \yii\grid\GridView::widget([
             'dataProvider' => $notFinishedDataProvider,
+            'tableOptions' => ['class' => 'table table-bordered'],
             'columns' => [
                 'title',
                 'created_at',
@@ -53,10 +54,45 @@ $this->title = 'Список доступных тестов'; ?>
     <div class="card-body">
         <?= \yii\grid\GridView::widget([
             'dataProvider' => $finishedDataProvider,
+            'tableOptions' => ['class' => 'table table-bordered'],
             'columns' => [
                 'title',
                 'created_at',
-                'expiration_date'
+                'expiration_date',
+                [
+                    'header' => 'Статус',
+                    'format' => 'html',
+                    'value' => function (Test $test) {
+                        /** @var \Woopple\Models\User\User $user */
+                        $user = Yii::$app->user->identity;
+                        $result = $test->getResultByUser($user);
+
+                        if (is_null($result)) {
+                            return "<div class='badge badge-warning'>На проверке</div>";
+                        } else {
+                            return "<div class='badge badge-success'>Проверен</div>";
+                        }
+                    }
+                ],
+                [
+                    'class' => \yii\grid\ActionColumn::class,
+                    'template' => '{results}',
+                    'buttons' => [
+                        'results' => function ($url, Test $model) {
+                            return Html::a('Ваши результаты', $url, [
+                                'title' => 'Результаты',
+                                'class' => 'btn btn-sm btn-success btn-block'
+                            ]);
+                        },
+                    ],
+                    'urlCreator' => function ($action, $model, $key, $index) {
+                        /** @var \Woopple\Models\User\User $user */
+                        $user = Yii::$app->user->identity;
+                        return match ($action) {
+                            'results' => Url::to(['test/user-results', 'test' => $model->id, 'login' => $user->login])
+                        };
+                    }
+                ]
             ]
         ]) ?>
     </div>

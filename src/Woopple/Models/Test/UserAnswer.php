@@ -5,6 +5,7 @@ namespace Woopple\Models\Test;
 use Woopple\Models\User\User;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\ArrayExpression;
 
 /**
  * @property int $id
@@ -13,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property int $question_id
  * @property string $text
  * @property int $answer_id
- * @property array $answer_ids
+ * @property array|ArrayExpression $answer_ids
  * @property boolean $is_correct
  * @property-read User $user
  * @property-read Test $test
@@ -29,8 +30,8 @@ class UserAnswer extends ActiveRecord
             ['text', 'required', 'when' => function (self $model) {
                 return QuestionType::tryFrom($model->question->type) == QuestionType::OPEN;
             }],
-            ['answer_id', 'integer'],
-            ['is_correct', 'default', 'value' => false]
+            ['is_correct', 'default', 'value' => false],
+            ['answer_ids', 'safe'],
         ];
     }
 
@@ -41,14 +42,9 @@ class UserAnswer extends ActiveRecord
             'test_id' => 'Тест',
             'question_id' => 'Вопрос',
             'text' => 'Ответ респондента',
-            'answer_id' => 'Ответ респондента',
+            'answer_ids' => 'Ответ респондента',
             'is_correct' => 'Правильность ответа'
         ];
-    }
-
-    public function checkCorrectness(): void
-    {
-
     }
 
     public function getUser(): ActiveQuery
@@ -66,8 +62,16 @@ class UserAnswer extends ActiveRecord
         return $this->hasOne(Question::class, ['id' => 'question_id']);
     }
 
-    public function getAnswer(): ActiveQuery
+    public function getAnswers(): array
     {
-        return $this->hasOne(QuestionAnswer::class, ['id' => 'answer_id']);
+        return array_map(function (int $id) {
+            return QuestionAnswer::findOne(['id' => $id]);
+        }, $this->answer_ids);
+    }
+
+    public function markAsCorrect(): void
+    {
+        $this->is_correct = true;
+        $this->update(false);
     }
 }

@@ -38,6 +38,7 @@ $this->title = 'Создание нового теста'; ?>
                         'autoclose' => true
                     ]
                 ]) ?>
+                <?= $form->field($model, 'is_closed')->checkbox() ?>
                 <?= Html::activeHiddenInput($model, 'questions_raw', ['id' => 'test-questions_raw']) ?>
                 <?= Html::hiddenInput(name: 'Test[questions_count]', options: ['id' => 'test-questions_count', 'value' => 1]) ?>
                 <?= Html::activeHiddenInput($model, 'author_id', ['value' => Yii::$app->user->id]) ?>

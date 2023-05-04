@@ -12,9 +12,10 @@ return array_merge(
         '/hr/teams/modify/<id>' => 'hr/modify-team',
         '/lead/tests/' => 'test/control',
         '/lead/tests/new' => 'test/create-test',
+        '/lead/tests/respondents/<id>' => 'test/respondents',
+        '/lead/tests/<test>/review/<user>' => 'test/review',
         '/tests' => 'test/user-tests',
         '/tests/start/<id>' => 'test/start-test',
-        '/tests/result/<id>' => 'test/user-results',
-        '/tests/result/<id>/by/<login>' => 'test/user-results-by-login'
+        '/tests/result/<test>/<login>' => 'test/user-results',
     ]
 );
