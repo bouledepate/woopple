@@ -125,6 +125,11 @@ $this->registerCss($css);
                         <textarea class="form-control" id="feedback" name="feedback"></textarea>
                     </div>
 
+                    <div class="custom-control custom-switch mb-3">
+                        <input type="checkbox" name="notification" class="custom-control-input" id="notification">
+                        <label class="custom-control-label" for="notification">Отобразить результаты в профиле сотрудника</label>
+                    </div>
+
                     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
 
                     <?php ActiveForm::end(); ?>

@@ -4,6 +4,10 @@ namespace Woopple\Controllers;
 
 use Woopple\Components\Enums\AccountStatus;
 use Woopple\Forms\AnswersForm;
+use Woopple\Models\Event\Button;
+use Woopple\Models\Event\Event;
+use Woopple\Models\Event\EventData;
+use Woopple\Models\Event\Icon;
 use Woopple\Models\Structure\Department;
 use Woopple\Models\Structure\Team;
 use Woopple\Models\Test\Result;
@@ -14,6 +18,7 @@ use Woopple\Models\Test\UserAnswer;
 use Woopple\Models\User\User;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -111,6 +116,23 @@ class TestController extends Controller
 
             if (!is_null($result)) {
                 $this->notice('success', 'Ответы респондента были успешно провалидированы и подтверждены.');
+
+                if (\Yii::$app->request->post('notification') == 'on') {
+                    Event::create(new EventData(
+                        user: $user->id,
+                        title: 'Результаты прошедшего тестирования',
+                        message: 'Сотрудник успешно прошёл тестирование.',
+                        icon: new Icon('fas fa-splotch', 'bg-warning'),
+                        buttons: [
+                            new Button(
+                                title: 'Результаты тестирования',
+                                link: Url::to(['test/user-results', 'test' => $test->id, 'login' => $user->login]),
+                                style: 'btn btn-success btn-sm'
+                            )
+                        ]
+                    ));
+                }
+
                 return $this->redirect(['test/user-results', 'test' => $test->id, 'login' => $user->login]);
             } else {
                 $this->notice('warning', 'При записи результатов возникли неполадки.');
