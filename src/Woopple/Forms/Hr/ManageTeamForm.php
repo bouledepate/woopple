@@ -24,7 +24,7 @@ class ManageTeamForm extends Model
     public $name;
     public $lead_id;
     public $department_id;
-    public $members;
+    public $members = [];
 
     public array $departments = [];
     public array $availableListOfLead = [];
@@ -60,13 +60,13 @@ class ManageTeamForm extends Model
     public function rules(): array
     {
         return [
-            [['name', 'lead_id', 'department_id'], 'required'],
+            [['name'], 'required'],
             ['name', 'string'],
             ['name', 'trim'],
             ['members', 'each', 'rule' => ['exist', 'targetClass' => User::class, 'targetAttribute' => 'id']],
             ['lead_id', 'exist', 'targetClass' => User::class, 'targetAttribute' => 'id'],
             ['department_id', 'exist', 'targetClass' => Department::class, 'targetAttribute' => 'id'],
-            ['id', 'safe']
+            [['id', 'lead_id', 'department_id'], 'safe']
         ];
     }
 
