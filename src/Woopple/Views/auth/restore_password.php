@@ -10,6 +10,9 @@ $this->title = Yii::t('auth', 'login_page');
 ?>
 
 <div class="card">
+    <div class="card-header text-center card-outline card-primary">
+        <span class="h1 login-brand">Woopple</span>
+    </div>
     <div class="card-body login-card-body">
         <p class="login-box-msg">Запрос на сброс пароля был одобрен. Пожалуйста, укажите новый пароль.</p>
         <?php $loginForm = ActiveForm::begin([]) ?>

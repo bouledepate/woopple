@@ -163,7 +163,7 @@ class TestController extends Controller
             return $this->redirect(['test/user-tests']);
         }
 
-        if ($test->is_closed && ($result->reviewer_id != \Yii::$app->user->id || $result->user_id != \Yii::$app->user->id)) {
+        if ($test->is_closed && ($result->reviewer_id != \Yii::$app->user->id && $result->user_id != \Yii::$app->user->id)) {
             $this->notice('error', 'Невозможно получить результаты по тестированию. Доступ к ним ограничен.');
             return $this->redirect(['test/user-tests']);
         }

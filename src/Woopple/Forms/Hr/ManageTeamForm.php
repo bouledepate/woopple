@@ -20,11 +20,11 @@ use yii\helpers\ArrayHelper;
 
 class ManageTeamForm extends Model
 {
-    public mixed $id = null;
-    public ?string $name = null;
-    public ?int $lead_id = null;
-    public ?int $department_id = null;
-    public ?array $members = null;
+    public $id;
+    public $name;
+    public $lead_id;
+    public $department_id;
+    public $members;
 
     public array $departments = [];
     public array $availableListOfLead = [];
