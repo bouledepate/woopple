@@ -2,6 +2,9 @@
 
 namespace Woopple\Models\User;
 
+use Woopple\Models\Event\Event;
+use Woopple\Models\Event\EventData;
+use Woopple\Models\Event\Icon;
 use yii\db\ActiveRecord;
 
 /**
@@ -57,6 +60,18 @@ class UserProfile extends ActiveRecord
     public function updatePosition(string $position): bool
     {
         $this->position = $position;
-        return (bool)$this->update();
+
+        $result = (bool)$this->update();
+
+        if ($result) {
+            Event::create(new EventData(
+                $this->user_id,
+                'Изменение должности сотрудника',
+                "Сотрудник получил новую должность в компании - \"$position\".",
+                new Icon("fas fa-trophy", 'bg-success')
+            ));
+        }
+
+        return $result;
     }
 }

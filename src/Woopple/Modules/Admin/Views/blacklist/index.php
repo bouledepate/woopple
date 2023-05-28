@@ -40,9 +40,15 @@ $statusList = AccountStatus::titles();
                                     }
 
                                     return \yii\helpers\Html::a(
-                                        text: $model->status == AccountStatus::ACTIVE->value ? 'Заблокировать' : 'Разблокировать',
+                                        text: in_array($model->status, [
+                                            AccountStatus::ACTIVE->value,
+                                            AccountStatus::CREATED->value
+                                        ]) ? 'Заблокировать' : 'Разблокировать',
                                         url: \yii\helpers\Url::to([$link, 'login' => $model->login]),
-                                        options: ['class' => $model->status == AccountStatus::ACTIVE->value
+                                        options: ['class' => in_array($model->status, [
+                                            AccountStatus::ACTIVE->value,
+                                            AccountStatus::CREATED->value
+                                        ])
                                             ? 'btn btn-sm btn-danger'
                                             : 'btn btn-sm btn-secondary'
                                         ]

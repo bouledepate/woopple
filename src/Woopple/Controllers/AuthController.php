@@ -8,6 +8,7 @@ use Woopple\Forms\Restore\PasswordForm;
 use Woopple\Forms\Restore\RequestForm;
 use Woopple\Forms\Restore\RestoreStep;
 use Woopple\Models\Restore;
+use Woopple\Models\User\User;
 use yii\web\Controller;
 use yii\web\Cookie;
 use yii\web\Response;
@@ -109,5 +110,35 @@ class AuthController extends Controller
             RestorePasswordStatus::DONE => 'restore_done',
             default => 'restore'
         };
+    }
+
+    public function actionChangePassword()
+    {
+        /** @var User $user */
+        $user = \Yii::$app->user->identity;
+
+        if (!$user->security->reset_pass) {
+            $this->notice('warning', 'Вы не можете изменить свой пароль. Если вам это необходимо, подайте заявку на странице авторизации.');
+            return $this->redirect(['profile/profile', 'login' => $user->login]);
+        }
+
+        $form = new PasswordForm();
+
+        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
+            $user->security->resetDefaultPassword($form->password);
+            \Yii::$app->user->logout();
+            return $this->redirect('/auth/login');
+        }
+
+        return $this->render('reset-pass', compact('form'));
+    }
+
+    private function notice(string $type, string $message): void
+    {
+        \Yii::$app->session->addFlash('notifications', [
+            'type' => $type,
+            'title' => 'Раздел авторизационных данных',
+            'message' => $message
+        ]);
     }
 }

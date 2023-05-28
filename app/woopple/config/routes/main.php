@@ -17,5 +17,12 @@ return array_merge(
         '/tests' => 'test/user-tests',
         '/tests/start/<id>' => 'test/start-test',
         '/tests/result/<test>/<login>' => 'test/user-results',
+        '/staff' => 'staff/index',
+        '/staff/change-position/<id>' => 'staff/change-position',
+        '/lead/employers' => 'structure/employers',
+        '/lead/teams' => 'structure/teams',
+        '/lead/teams/create' => 'structure/create-team',
+        '/lead/teams/modify/<id>' => 'structure/modify-team',
+        '/auth/change-password' => 'auth/change-password'
     ]
 );

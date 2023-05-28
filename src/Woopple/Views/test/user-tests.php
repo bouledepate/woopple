@@ -56,9 +56,18 @@ $this->title = 'Список доступных тестов'; ?>
             'dataProvider' => $finishedDataProvider,
             'tableOptions' => ['class' => 'table table-bordered'],
             'columns' => [
-                'title',
-                'created_at',
-                'expiration_date',
+                [
+                    'attribute' => 'title',
+                    'header' => 'Наименование теста'
+                ],
+                [
+                    'attribute' => 'created_at',
+                    'header' => 'Дата создания'
+                ],
+                [
+                    'attribute' => 'expiration_date',
+                    'header' => 'Дата истечения'
+                ],
                 [
                     'header' => 'Статус',
                     'format' => 'html',

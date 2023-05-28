@@ -53,6 +53,12 @@ return [
             . "</span>",
     ],
     [
+        'label' => 'Сотрудники',
+        'url' => ['/staff'],
+        'iconStyle' => 'fas',
+        'icon' => 'users'
+    ],
+    [
         'label' => Yii::t('navigation', 'lead-section'),
         'access' => Permission::ACCESS_LEAD_SECTION->value,
         'header' => true
@@ -63,6 +69,27 @@ return [
         'iconStyle' => 'fas',
         'icon' => 'file-alt',
         'access' => Permission::TESTS_CONTROL->value
+    ],
+    [
+        'label' => Yii::t('navigation', 'lead-structure'),
+        'icon' => 'database',
+        'access' => Permission::ACCESS_LEAD_SECTION->value,
+        'items' => [
+            [
+                'label' => Yii::t('navigation', 'lead-teams'),
+                'url' => ['structure/teams'],
+                'iconStyle' => 'fas',
+                'icon' => 'frog',
+                'access' => Permission::ACCESS_LEAD_SECTION->value
+            ],
+            [
+                'label' => Yii::t('navigation', 'lead-users'),
+                'url' => ['structure/members'],
+                'iconStyle' => 'fas',
+                'icon' => 'users',
+                'access' => Permission::ACCESS_LEAD_SECTION->value
+            ]
+        ]
     ],
     [
         'label' => Yii::t('navigation', 'human-resource'),

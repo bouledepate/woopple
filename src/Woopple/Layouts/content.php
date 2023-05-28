@@ -4,6 +4,9 @@
 use aryelds\sweetalert\SweetAlert;
 use yii\bootstrap4\Breadcrumbs;
 
+/** @var \Woopple\Models\User\User $current */
+$current = Yii::$app->user->identity;
+
 ?>
 <?php if (Yii::$app->session->hasFlash('notifications')): ?>
     <?php foreach (Yii::$app->session->getFlash('notifications') as $flash): ?>
@@ -20,6 +23,13 @@ use yii\bootstrap4\Breadcrumbs;
 <div class="content-wrapper px-4 py-2">
     <div class="content-header">
         <div class="container-fluid">
+            <?php if ($current && $current->security->reset_pass): ?>
+                <div class="alert alert-danger" role="alert">
+                    Вы используете первоначальный пароль. В целях безопасности, вам требуется <a
+                            class="font-weight-bold" href="<?= \yii\helpers\Url::to(['auth/change-password']) ?>">сменить
+                        пароль</a>.
+                </div>
+            <?php endif; ?>
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">

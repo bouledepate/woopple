@@ -8,11 +8,11 @@ use yii\base\Model;
 
 class DepartmentForm extends Model
 {
-    public ?int $id = null;
-    public string $name = '';
-    public int $lead = 0;
-    public string $leadPosition = '';
-    public array $users;
+    public $id = null;
+    public $name = '';
+    public $lead = 0;
+    public $leadPosition = '';
+    public $users;
 
     public function init(): void
     {

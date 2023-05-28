@@ -14,7 +14,7 @@
             <div>
                 <i class="<?= $event->icon['icon'] ?> <?= $event->icon['background'] ?>"></i>
                 <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> <?= $event->date->setTimezone(new DateTimeZone('Asia/Almaty'))->format('H:i') ?></span>
+                    <span class="time"><i class="far fa-clock"></i> <?= $event->date->format('H:i') ?></span>
                     <h3 class="timeline-header"><?= $event->title ?></h3>
                     <?php if (!empty($event->message)): ?>
                         <div class="timeline-body"><?= $event->message ?></div>

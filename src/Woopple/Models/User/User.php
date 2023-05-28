@@ -141,11 +141,15 @@ class User extends ActiveRecord
         ]);
 
         if ($object->save(false)) {
-            $team = Team::findOne(['id' => $form->team]);
-            if ($team->addMember($this->id)) {
-                return true;
+            if (!empty($form->team)) {
+                $team = Team::findOne(['id' => $form->team]);
+                if ($team->addMember($this->id)) {
+                    return true;
+                } else {
+                    $object->delete();
+                }
             } else {
-                $object->delete();
+                return true;
             }
         }
 

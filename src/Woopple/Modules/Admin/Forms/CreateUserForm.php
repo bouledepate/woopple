@@ -10,11 +10,11 @@ use yii\base\Model;
 
 class CreateUserForm extends Model implements UserManagementInterface
 {
-    public string $login = '';
-    public string $email = '';
-    public string $password = '';
-    public string $passwordRepeat = '';
-    public array $roles = [];
+    public $login = '';
+    public $email = '';
+    public $password = '';
+    public $passwordRepeat = '';
+    public $roles = [];
 
     /** @throws Exception */
     public function rules(): array

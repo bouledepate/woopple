@@ -21,17 +21,17 @@ class BlacklistController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'roles' => [Permission::ACCESS_BLACKLIST_CONTROL->value]
+                        'roles' => [Permission::ACCESS_USER_MANAGEMENT->value]
                     ],
                     [
                         'allow' => true,
                         'actions' => ['block'],
-                        'roles' => [Permission::BLOCK_USER->value]
+                        'roles' => [Permission::ACCESS_USER_MANAGEMENT->value]
                     ],
                     [
                         'allow' => true,
                         'actions' => ['unblock'],
-                        'roles' => [Permission::UNBLOCK_USER->value]
+                        'roles' => [Permission::ACCESS_USER_MANAGEMENT->value]
                     ],
                 ]
             ]

@@ -10,17 +10,17 @@ use yii\helpers\ArrayHelper;
 
 class FillProfileForm extends Model
 {
-    public ?string $firstName = null;
-    public ?string $secondName = null;
-    public ?string $lastName = null;
-    public ?string $birthday = null;
-    public ?string $education = null;
-    public ?string $skills = null;
-    public ?string $position = null;
-    public ?int $department = null;
-    public ?int $team = null;
+    public $firstName = null;
+    public $secondName = null;
+    public $lastName = null;
+    public $birthday = null;
+    public $education = null;
+    public $skills = null;
+    public $position = null;
+    public $department = null;
+    public $team = null;
 
-    public array $departments;
+    public array $departments = [];
 
     public function init(): void
     {
@@ -33,11 +33,12 @@ class FillProfileForm extends Model
     public function rules(): array
     {
         return [
-            [['firstName', 'secondName', 'lastName', 'birthday', 'position', 'department', 'team'], 'required'],
+            [['firstName', 'secondName', 'lastName', 'birthday', 'position'], 'required'],
             [['firstName', 'secondName', 'lastName', 'education', 'skills', 'position'], 'string'],
             [['firstName', 'secondName', 'lastName', 'education', 'skills', 'position'], 'trim'],
             ['department', 'exist', 'targetClass' => Department::class, 'targetAttribute' => 'id'],
             ['team', 'exist', 'targetClass' => Team::class, 'targetAttribute' => 'id'],
+            [['department', 'team'], 'safe']
         ];
     }
 

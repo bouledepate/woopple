@@ -15,5 +15,9 @@ return [
     'hr-teams' => 'Команды',
     'lead-section' => 'Раздел руководителя',
     'lead-tests' => 'Тестирование',
-    'user-tests' => 'Ваши тесты'
+    'user-tests' => 'Ваши тесты',
+    'lead-structure' => 'Орг. структура',
+    'lead-departments' => 'Отделы',
+    'lead-teams' => 'Команды',
+    'lead-users' => 'Сотрудники',
 ];

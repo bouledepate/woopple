@@ -29,9 +29,10 @@ class UserController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['security'],
-                        'roles' => [Permission::ACCESS_SECURITY_CONTROL->value]
+                        'roles' => [Permission::ACCESS_USER_MANAGEMENT->value]
                     ],
-                    ['allow' => true,
+                    [
+                        'allow' => true,
                         'actions' => ['create'],
                         'roles' => [Permission::CREATE_USER->value]
                     ],
@@ -43,12 +44,12 @@ class UserController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['block'],
-                        'roles' => [Permission::BLOCK_USER->value]
+                        'roles' => [Permission::ACCESS_USER_MANAGEMENT->value]
                     ],
                     [
                         'allow' => true,
                         'actions' => ['unblock'],
-                        'roles' => [Permission::UNBLOCK_USER->value]
+                        'roles' => [Permission::ACCESS_USER_MANAGEMENT->value]
                     ],
                 ],
             ]
