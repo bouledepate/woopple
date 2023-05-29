@@ -33,10 +33,13 @@ $statusList = AccountStatus::titles();
                             'template' => '{block}',
                             'buttons' => [
                                 'block' => function ($url, $model) {
-                                    if ($model->status == AccountStatus::ACTIVE->value) {
-                                        $link = '/admin/users/blacklist/add';
+                                    if (in_array($model->status, [
+                                        AccountStatus::ACTIVE->value,
+                                        AccountStatus::CREATED->value
+                                    ])) {
+                                        $link = '/admin/blacklist/add';
                                     } else {
-                                        $link = '/admin/users/blacklist/remove';
+                                        $link = '/admin/blacklist/remove';
                                     }
 
                                     return \yii\helpers\Html::a(

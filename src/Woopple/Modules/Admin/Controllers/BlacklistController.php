@@ -55,7 +55,7 @@ class BlacklistController extends Controller
             $entity->changeStatus(AccountStatus::BLOCKED);
         }
 
-        return $this->redirect('/admin/users/blacklist');
+        return $this->redirect('/admin/blacklist');
     }
 
     /** @throws \Throwable */
@@ -64,10 +64,14 @@ class BlacklistController extends Controller
         $entity = User::findOneByLogin($login);
 
         if (!is_null($entity) && $this->ensureCanBlock($entity)) {
-            $entity->changeStatus(AccountStatus::ACTIVE);
+
+            $entity->changeStatus(is_null($entity->profile)
+                ? AccountStatus::CREATED
+                : AccountStatus::ACTIVE
+            );
         }
 
-        return $this->redirect('/admin/users/blacklist');
+        return $this->redirect('/admin/blacklist');
     }
 
     protected function ensureCanBlock(User $user): bool
