@@ -33,7 +33,7 @@ $this->title = 'Сотрудники'; ?>
                 [
                     'header' => 'ФИО',
                     'value' => function (\Woopple\Models\User\User $user) {
-                        return Html::a($user->profile->fullName(), \yii\helpers\Url::to([
+                        return Html::a($user->profile?->fullName(), \yii\helpers\Url::to([
                             'profile/profile', 'login' => $user->login
                         ]));
                     },
@@ -42,7 +42,7 @@ $this->title = 'Сотрудники'; ?>
                 [
                     'header' => 'Должность в компании',
                     'value' => function (\Woopple\Models\User\User $user) {
-                        return $user->profile->position;
+                        return $user->profile?->position;
                     }
                 ],
                 [

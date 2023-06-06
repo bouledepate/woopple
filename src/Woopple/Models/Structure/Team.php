@@ -51,7 +51,7 @@ class Team extends ActiveRecord
 
         if ($team->lead !== $form->lead_id && !empty($form->lead_id)) {
             if (!is_null($team->lead)) {
-                $tm = TeamMember::findOne(['user_id' => $team->id]);
+                $tm = TeamMember::findOne(['user_id' => $team->lead]);
             } else {
                 $tm = new TeamMember();
             }

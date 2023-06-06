@@ -196,6 +196,7 @@ class StructureController extends Controller
         return $this->redirect(['staff/index']);
     }
 
+
     private function checkChangePositionAvailability(User|Identity $lead, User|Identity $employee): bool
     {
         if (in_array(\Core\Enums\Role::HR->value, $lead->roles->getValue())) {

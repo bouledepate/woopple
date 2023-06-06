@@ -14,6 +14,7 @@ use Woopple\Models\Structure\Team;
 use Woopple\Models\Structure\TeamMember;
 use Woopple\Models\User\User;
 use Woopple\Models\User\UserProfile;
+use Woopple\Modules\Admin\Forms\DepartmentForm;
 use yii\data\ActiveDataProvider;
 use yii\data\Sort;
 use yii\db\StaleObjectException;
@@ -43,7 +44,12 @@ class HrController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['departments'],
+                        'actions' => [
+                            'departments',
+                            'add-department',
+                            'modify-department',
+                            'remove-department'
+                        ],
                         'roles' => [Permission::VIEW_DEPARTMENT_LIST->value]
                     ],
                     [
@@ -219,6 +225,77 @@ class HrController extends Controller
         return $this->render('team-modify', compact('model'));
     }
 
+
+    public function actionAddDepartment(): Response|string
+    {
+        $model = new DepartmentForm();
+
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
+            $department = Department::new($model);
+            if (!is_null($department)) {
+                $department->setLead($model->leadPosition);
+                $this->sendNotification('success', "Вы успешно зарегистрировали новый отдел");
+                return $this->redirect(['hr/departments']);
+            }
+        }
+
+        return $this->render('modify', ['model' => $model, 'department' => null]);
+    }
+
+    public function actionModifyDepartment(int $id): Response|string
+    {
+        $model = new DepartmentForm();
+        $department = Department::findOne(['id' => $id]);
+
+        if (is_null($department)) {
+            $this->sendNotification('error', 'Попытка изменения несуществующего отдела. Убедитесь в корректности передаваемых данных.');
+            return $this->redirect(['hr/departments']);
+        }
+
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
+            $updated = Department::modify($model);
+            if (!is_null($updated)) {
+                $updated->changeLead($department->lead, $model->leadPosition);
+                $this->sendNotification('success', "Вы успешно обновили данные отдела");
+                return $this->redirect(['hr/departments']);
+            }
+        }
+
+        $model->setAttributes([
+            'id' => $department->id,
+            'name' => $department->name,
+            'lead' => $department->lead,
+            'leadPosition' => $department->departmentLead->profile->position
+        ]);
+
+        return $this->render('modify', [
+            'model' => $model,
+            'department' => $department
+        ]);
+    }
+
+    /**
+     * @throws StaleObjectException
+     * @throws \Throwable
+     */
+    public function actionRemoveDepartment(int $id): Response
+    {
+        $model = Department::findOne(['id' => $id]);
+
+        if (is_null($model)) {
+            $this->sendNotification('error', 'Отдел не найден.');
+            return $this->redirect(['hr/departments']);
+        }
+
+        $model->removeLead();
+        if ($model->delete()) {
+            $this->sendNotification('success', 'Отдел был успешно удалён');
+        } else {
+            $this->sendNotification('error', 'Во время удаления произошла ошибка. Убедитесь в корректности выполняемых действий');
+        }
+
+        return $this->redirect(['hr/departments']);
+    }
 
     protected function sendNotification(string $type, string $message): void
     {

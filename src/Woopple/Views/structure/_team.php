@@ -63,7 +63,7 @@ $current = Yii::$app->user->identity;
                     return $current->isTeamLead();
                 },
                 'edit' => function (\Woopple\Models\Structure\Team $team) use ($current) {
-                    return $current->isTeamLead() || $current->isDepartmentLead() && $current->getTeam()?->id == $team->id;
+                    return $current->isTeamLead() || $current->isDepartmentLead();
                 }
             ]
         ]

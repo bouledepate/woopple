@@ -12,6 +12,11 @@ $this->title = 'Отделы компании'; ?>
 <div class="row">
     <section class="col-lg-12">
         <div class="card">
+            <div class="card-header">
+                <a href="<?= \yii\helpers\Url::to(['hr/add-department']) ?>" class="btn btn-success my-2">
+                    Создать отдел
+                </a>
+            </div>
             <div class="card-body">
                 <?= \yii\grid\GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -37,7 +42,7 @@ $this->title = 'Отделы компании'; ?>
                             ],
                             'urlCreator' => function ($action, $model, $key, $index) {
                                 return match ($action) {
-                                    'update' => \yii\helpers\Url::to(['department/modify', 'id' => $model->id])
+                                    'update' => \yii\helpers\Url::to(['hr/modify-department', 'id' => $model->id])
                                 };
                             }
                         ]
